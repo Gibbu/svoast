@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.token.comment {
+	@apply text-neutral-600;
+}
+.token.tag {
+	@apply text-red-400;
+}
+.token.attr-name,
+.token.boolean {
+	@apply text-orange-300;
+}
+.token.attr-value,
+.token.string {
+	@apply text-amber-200;
+}
+.token.keyword,
+.token.operator {
+	@apply text-violet-400;
+}
+.token.function {
+	@apply text-cyan-500;
+}
+.token.namespace {
+	@apply text-rose-300;
+}
+
+.token.keyword + .token.operator,
+.token.function-variable + .token.operator,
+.token.punctuation + .token.operator {
+	@apply text-neutral-400;
+}

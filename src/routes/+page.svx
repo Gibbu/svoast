@@ -1,0 +1,49 @@
+# Installation
+
+```bash
+npm i svoast -D
+# or
+yarn add svoast -D
+# or
+pnpm add svoast -D
+```
+
+---
+
+# Usage
+
+Import the `<Toasts />` component to your main layout file.
+
+```svelte
+<!-- routes/+layout.svelte -->
+<script>
+	import { Toasts } from 'svoast';
+</script>
+
+<Toasts />
+```
+
+And then call the `toast` function anywhere! (on the client, of course)
+
+```svelte
+<!-- routes/settings/+page.svelte -->
+<script>
+	import { toast } from 'svoast';
+
+	async function save() {
+		const { success } = await api.user.save();
+
+		if (success) {
+			toast.success('Settings successfully updated.');
+		} else {
+			toast.error('There was a problem trying to save your settings.', 12000);
+		}
+	}
+</script>
+
+<button on:click={save}>Save changes</button>
+```
+
+---
+
+# API
