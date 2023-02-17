@@ -11,11 +11,13 @@
 .token.comment {
 	@apply text-neutral-600;
 }
-.token.tag {
+.token.tag,
+.token.property {
 	@apply text-red-400;
 }
 .token.attr-name,
-.token.boolean {
+.token.boolean,
+.token.selector {
 	@apply text-orange-300;
 }
 .token.attr-value,

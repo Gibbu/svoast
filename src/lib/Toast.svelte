@@ -50,7 +50,7 @@
 			position: absolute;
 			top: 0;
 			left: 0;
-			width: 3px;
+			width: var(--svoast-bar-width, 3px);
 			height: 100%;
 			background: var(--svoast-colour);
 		}

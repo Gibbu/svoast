@@ -17,7 +17,7 @@
 			href="https://github.com/Gibbu/svoast"
 			target="_blank"
 			rel="noopener noreferrer"
-			class="absolute bottom-4 left-4 p-4 z-10 rounded-lg hover:bg-neutral-800 hover:text-white"
+			class="absolute top-4 left-4 p-4 z-10 rounded-lg hover:bg-neutral-800 hover:text-white"
 		>
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-6 h-6">
 				<path
