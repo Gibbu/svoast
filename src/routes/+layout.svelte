@@ -5,7 +5,7 @@
 	import { Toasts } from '$lib';
 </script>
 
-<Toasts position="bottom" />
+<Toasts position="bottom-left" />
 
 <div class="h-screen w-screen overflow-x-hidden overflow-y-auto grid grid-cols-2 items-start">
 	<aside class="flex items-center justify-center sticky top-0 min-h-screen">
