@@ -42,6 +42,12 @@
 			display: flex;
 			flex-direction: column;
 			gap: var(--svoast-gap, 16px);
+			overflow: hidden;
+
+			&[data-position='top'],
+			&[data-position='bottom'] {
+				align-items: center;
+			}
 			&[data-position*='bottom'] {
 				justify-content: flex-end;
 			}

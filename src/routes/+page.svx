@@ -79,7 +79,3 @@ There are 2 options that you can pass; `closable` and `duration`.
 `duration` well, will be the time the toast is visible.
 
 <Options />
-
----
-
-# API

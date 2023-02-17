@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { position, toast as _toast } from './toast';
+	import { AttentionIcon, CheckIcon, CrossIcon, InfoIcon, WarningIcon } from './icons';
 	import type { Toast } from './types';
 
 	export let toast: Toast;
@@ -7,6 +8,19 @@
 
 <div id="svoast-{toast.id}" class="svoast {toast.type}" data-position={$position} aria-live="polite" role="status">
 	<div class="svoast-bar" />
+	<div class="svoast-icon">
+		{#if toast.type === 'info'}
+			<InfoIcon />
+		{:else if toast.type === 'attention'}
+			<AttentionIcon />
+		{:else if toast.type === 'success'}
+			<CheckIcon />
+		{:else if toast.type === 'warning'}
+			<WarningIcon />
+		{:else if toast.type === 'error'}
+			<CrossIcon />
+		{/if}
+	</div>
 	{toast.message}
 	{#if toast.opts?.closable}
 		<button type="button" class="svoast-dismiss" on:click={() => _toast.remove(toast.id)}>
@@ -21,7 +35,7 @@
 	.svoast {
 		background: var(--svoast-bg, #333);
 		color: var(--svoast-text, #fff);
-		padding: var(--svoast-padding, 8px 12px 8px 15px);
+		padding: var(--svoast-padding, 10px 15px 10px 18px);
 		border-radius: var(--svoast-radius, 4px);
 		box-shadow: var(--svoast-shadow, 0 2px 7px hsl(0 0% 0% / 0.25));
 		font-size: var(--svoast-font-size, 14px);
@@ -40,10 +54,15 @@
 			height: 100%;
 			background: var(--svoast-colour);
 		}
+		&-icon {
+			width: var(--svoast-icon-size, 21px);
+			height: var(--svoast-icon-size, 21px);
+			color: var(--svoast-colour);
+		}
 		&-dismiss {
-			width: var(--svoast-dismiss-size, 21px);
-			height: var(--svoast-dismiss-size, 21px);
-			padding: var(--svoast-dismiss-padding, 2px);
+			width: var(--svoast-icon-size, 21px);
+			height: var(--svoast-icon-size, 21px);
+			padding: var(--svoast-icon-padding, 2px);
 		}
 
 		&.info {

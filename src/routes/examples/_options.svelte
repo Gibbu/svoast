@@ -10,7 +10,7 @@
 </script>
 
 <div>
-	<input type="number" step="1000" class="input" bind:value={duration} />
+	<input type="number" min="1000" step="1000" class="input" bind:value={duration} />
 
 	<div>
 		<label>
