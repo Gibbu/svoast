@@ -1,6 +1,6 @@
 {
 	"name": "svoast",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"scripts": {
 		"dev": "vite dev --port=3000",
 		"build:site": "vite build",
@@ -10,6 +10,18 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --plugin-search-dir . --check .",
 		"format": "prettier --plugin-search-dir . --write ."
+	},
+	"keywords": [
+		"toast",
+		"svelte",
+		"svelte-component"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Gibbu/svoast.git"
+	},
+	"bugs": {
+		"url": "https://github.com/Gibbu/svoast/issues"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^2.0.0",
@@ -30,6 +42,9 @@
 		"tslib": "^2.4.1",
 		"typescript": "^4.9.3",
 		"vite": "^4.0.0"
+	},
+	"peerDependencies": {
+		"svelte": "^3.54.0"
 	},
 	"type": "module"
 }
