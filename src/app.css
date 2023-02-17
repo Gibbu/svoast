@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+.btn,
+.select,
+.input {
+	@apply px-4 h-12 rounded !bg-neutral-900 text-sm hover:!bg-neutral-800 hover:text-white transition-colors;
+}
+
 .token.comment {
 	@apply text-neutral-600;
 }

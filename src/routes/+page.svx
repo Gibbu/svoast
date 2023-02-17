@@ -1,10 +1,22 @@
+<script>
+	import Usage from './examples/_usage.svelte';
+	import Types from './examples/_types.svelte';
+	import Options from './examples/_options.svelte';
+</script>
+
 # Installation
 
-```bash
+Install using your favourite package manager:
+
+```
 npm i svoast -D
-# or
+```
+
+```
 yarn add svoast -D
-# or
+```
+
+```
 pnpm add svoast -D
 ```
 
@@ -36,13 +48,37 @@ And then call the `toast` function anywhere! (on the client, of course)
 		if (success) {
 			toast.success('Settings successfully updated.');
 		} else {
-			toast.error('There was a problem trying to save your settings.', 12000);
+			toast.error('There was a problem trying to save your settings.', { duration: 12000 });
 		}
 	}
 </script>
 
 <button on:click={save}>Save changes</button>
 ```
+
+<Usage />
+
+---
+
+# Types
+
+You have 5 types to toasts to play with.
+
+Info, attention, success, warning, and error.  
+These _should_ be enough to express to the user what they mean.
+
+<Types />
+
+---
+
+# Options
+
+There are 2 options that you can pass; `closable` and `duration`.
+
+`closable` will allow the user to dismiss the toast early.  
+`duration` well, will be the time the toast is visible.
+
+<Options />
 
 ---
 
