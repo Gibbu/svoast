@@ -11,24 +11,14 @@
 	};
 </script>
 
-<div>
+<div class="flex gap-4 flex-col lg:flex-row">
 	<select class="select" bind:value={type}>
 		{#each types as type}
 			<option value={type}>{type}</option>
 		{/each}
 	</select>
 
-	<input class="input" type="text" bind:value={message} />
+	<input class="input flex-1" type="text" bind:value={message} />
 
 	<button type="button" class="btn" on:click={launchToast}>Launch toast</button>
 </div>
-
-<style>
-	div {
-		display: flex;
-		gap: 16px;
-	}
-	input {
-		flex: 1;
-	}
-</style>

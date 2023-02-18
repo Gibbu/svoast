@@ -9,11 +9,11 @@
 	};
 </script>
 
-<div>
+<div class="flex gap-4 flex-col lg:items-center lg:flex-row">
 	<input type="number" min="1000" step="1000" class="input" bind:value={duration} />
 
-	<div>
-		<label>
+	<div class="flex-1">
+		<label class="inline-flex items-center gap-4 cursor-pointer">
 			<input type="checkbox" bind:checked={closable} />
 			<p>Closable</p>
 		</label>
@@ -21,19 +21,3 @@
 
 	<button class="btn" type="button" on:click={launch}> Launch toast </button>
 </div>
-
-<style lang="scss">
-	div {
-		display: flex;
-		align-items: center;
-		gap: 16px;
-		div {
-			flex: 1;
-		}
-	}
-	label {
-		display: inline-flex;
-		gap: 8px;
-		cursor: pointer;
-	}
-</style>
