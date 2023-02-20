@@ -1,11 +1,14 @@
 <script lang="ts">
 	import '../app.css';
 	import clsx from 'clsx';
+	import { position } from '$site/stores';
 
 	import { Toasts } from '$lib';
 </script>
 
-<Toasts position="bottom-left" />
+{#key $position}
+	<Toasts position={$position} />
+{/key}
 
 <a
 	href="https://github.com/Gibbu/svoast"

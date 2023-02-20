@@ -2,6 +2,7 @@
 	import Usage from './examples/_usage.svelte';
 	import Types from './examples/_types.svelte';
 	import Options from './examples/_options.svelte';
+	import Position from './examples/_position.svelte';
 </script>
 
 # Installation
@@ -79,6 +80,15 @@ There are 2 options that you can pass; `closable` and `duration`.
 `duration` well, will be the time the toast is visible.
 
 <Options />
+
+---
+
+# Positioning
+
+The `<Toasts />` component has a `position` prop that allows you to change what position the toasts are displayed from.  
+This will change what direction they popout from and how they stack on each other.
+
+<Position />
 
 ---
 
