@@ -10,10 +10,10 @@
 </script>
 
 <select class="select" bind:value={pos} on:change={update}>
-	<option value="bottom">bottom</option>
 	<option value="bottom-left">bottom-left</option>
+	<option value="bottom-center">bottom-center</option>
 	<option value="bottom-right">bottom-right</option>
-	<option value="top">top</option>
 	<option value="top-left">top-left</option>
+	<option value="top-center">top-center</option>
 	<option value="top-right">top-right</option>
 </select>

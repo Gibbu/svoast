@@ -1,9 +1,18 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import '../app.css';
 	import clsx from 'clsx';
-	import { position } from '$site/stores';
+	import { version } from '../../package.json';
 
-	import { Toasts } from '$lib';
+	import { position } from '$site/stores';
+	import { Toasts, toast } from '$lib';
+
+	onMount(() => {
+		toast.success('Hello, world!', {
+			duration: 10000,
+			closable: true
+		});
+	});
 </script>
 
 {#key $position}
@@ -25,7 +34,10 @@
 <div class="w-screen lg:grid lg:grid-cols-2 lg:items-start">
 	<aside class="flex items-center justify-center min-h-screen lg:sticky lg:top-0">
 		<div class="m-auto">
-			<h1 class="text-7xl font-display text-white font-bold">SVoast</h1>
+			<h1 class="text-7xl font-display text-white font-bold relative flex items-start gap-2">
+				SVoast
+				<span class="opacity-30 text-sm absolute -right-4 select-none pointer-events-none">v{version}</span>
+			</h1>
 			<p class="mt-4">A simple toast component for Svelte</p>
 		</div>
 	</aside>

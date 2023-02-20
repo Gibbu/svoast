@@ -1,6 +1,6 @@
 {
 	"name": "svoast",
-	"version": "0.1.2",
+	"version": "1.0.0",
 	"scripts": {
 		"dev": "vite dev --port=3000",
 		"build:site": "vite build",

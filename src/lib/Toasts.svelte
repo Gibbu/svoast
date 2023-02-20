@@ -1,10 +1,11 @@
 <script lang="ts">
 	import Toast from './Toast.svelte';
-	import { toast as toasts, position as toastPos } from './toast';
+	import { toast as toasts, position as toastPos } from './stores';
 	import { scale } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
 
 	import type { ToastPosition } from './types';
+	import type { ComponentType } from 'svelte';
 
 	export let position: ToastPosition = 'bottom-left';
 	export let animation = {
@@ -12,6 +13,7 @@
 		opacity: 0,
 		duration: 150
 	};
+	export let component: ComponentType | undefined = undefined;
 
 	$toastPos = position;
 </script>
@@ -25,7 +27,11 @@
 			out:scale={{ duration: animation.duration }}
 			animate:flip={{ duration: animation.duration }}
 		>
-			<Toast {toast} />
+			{#if toast.opts?.component || component}
+				<svelte:component this={toast.opts?.component?.[0] || component} {...toast} />
+			{:else}
+				<Toast {toast} />
+			{/if}
 		</div>
 	{/each}
 </div>
@@ -37,6 +43,7 @@
 			padding: var(--svoast-offset, 16px);
 			top: 0;
 			height: 100%;
+			width: 100%;
 			pointer-events: none;
 			z-index: 999;
 			display: flex;
@@ -44,15 +51,13 @@
 			gap: var(--svoast-gap, 16px);
 			overflow: hidden;
 
-			&[data-position='top'],
-			&[data-position='bottom'] {
+			&[data-position*='center'] {
 				align-items: center;
 			}
 			&[data-position*='bottom'] {
 				justify-content: flex-end;
 			}
-			&[data-position='bottom'],
-			&[data-position='top'] {
+			&[data-position*='center'] {
 				left: 50%;
 				transform: translateX(-50%);
 			}
@@ -66,7 +71,7 @@
 			}
 		}
 		&-wrapper {
-			&[data-position='bottom'] {
+			&[data-position='bottom-center'] {
 				transform-origin: bottom center;
 			}
 			&[data-position='bottom-left'] {
@@ -75,7 +80,7 @@
 			&[data-position='bottom-right'] {
 				transform-origin: bottom right;
 			}
-			&[data-position='top'] {
+			&[data-position='top-center'] {
 				transform-origin: top center;
 			}
 			&[data-position='top-left'] {

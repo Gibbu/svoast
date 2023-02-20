@@ -3,6 +3,7 @@
 	import Types from './examples/_types.svelte';
 	import Options from './examples/_options.svelte';
 	import Position from './examples/_position.svelte';
+	import Custom from './examples/_custom.svelte';
 </script>
 
 # Installation
@@ -98,6 +99,10 @@ SVoast uses CSS variables.
 
 ```css
 :root {
+	/* Spacing for the container and between each toast */
+	--svoast-offset: 16px;
+	--svoast-gap: 16px;
+
 	/* The toast itself. */
 	--svoast-bg: #333;
 	--svoast-text: #fff;
@@ -117,4 +122,97 @@ SVoast uses CSS variables.
 	/* Icons */
 	--svoast-icon-padding: 2px;
 }
+```
+
+---
+
+# Custom Components
+
+If you want a completely new look and/or want to add functionality to the toasts, you can either do it globally or individually.
+
+### Setting global toasts
+
+Globally means setting the `component` prop on the `<Toasts />` component. All toasts that aren't defined individually will be the component you provided.  
+Downsides are you're stuck with the default props that are given by this package.
+
+```svelte
+<!-- routes/+layout.svelte -->
+<script>
+	import { Toasts } from 'svoast';
+	import Component from '$lib/Component.svelte';
+</script>
+
+<Toasts component={Component} />
+```
+
+---
+
+### Setting individual toasts
+
+If you wish for freedom, set the component on each `toast` call with the `component` provided in the options object.  
+The first index of the prop will be the custom component you want to use.  
+The second index of the array will be any props you want to be passed down to your component.
+
+**NOTE**: All props provided by this package are still passed down to your custom component (so no need to redefine everything).
+
+```svelte
+<!-- lib/LinkToast.svelte -->
+<script>
+	// Default props from package:
+	export let id;
+	export let message;
+	export let type;
+	export let opts;
+
+	// Custom props:
+	export let link;
+	export let newTab = false;
+</script>
+
+<div class="toast" style="--duration: {opts.duration}">
+	<p>{message}</p>
+	<a href={link} target={newTab ? '_blank' : undefined} rel={newTab ? 'noreferrer noopener' : undefined}>
+		View Page
+	</a>
+</div>
+```
+
+```svelte
+<!-- routes/settings/+page.svelte -->
+<script>
+	import { toast } from 'svoast';
+	import LinkToast from '$lib/LinkToast.svelte';
+
+	async function save() {
+		toast.success('Successfully saved!', {
+			component: [LinkToast, { link: '/users/@me' }]
+		});
+	}
+</script>
+
+<button on:click={save}>Save Changes</button>
+```
+
+<Custom />
+
+---
+
+### Adding a custom dismiss button
+
+If you want a dismiss button, make sure to export an `id` prop in your custom component.  
+And then you can use the `remove` method on the `toast` function.
+
+```svelte
+<!-- lib/Custom.svelte -->
+<script>
+	import { toast } from 'svoast';
+
+	export let id;
+	export let message;
+</script>
+
+<div>
+	{message}
+	<button on:click={() => toast.remove(id)}>X</button>
+</div>
 ```

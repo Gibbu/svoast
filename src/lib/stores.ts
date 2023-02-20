@@ -3,17 +3,19 @@ import { ID, DEFAULT_OPTIONS } from './utils';
 
 import type { ToastFunction, Toast, ToastType, ToastOptions, ToastPosition } from './types';
 
-const createToast = (toasts?: Toast[]) => {
-	const { subscribe, update } = writable<Toast[]>(toasts || []);
+const createToast = () => {
+	const { subscribe, update } = writable<Toast[]>([]);
 
 	const addToast = (type: ToastType, message: string, opts: ToastOptions = DEFAULT_OPTIONS) => {
 		const uid = ID();
 
+		let customProps: Record<string, any> = opts.component?.[1] || {};
+
 		update((toasts) => {
 			if (get(position).includes('bottom')) {
-				toasts = [...toasts, { id: uid, type, message, opts }];
+				toasts = [...toasts, { id: uid, type, message, opts, ...customProps }];
 			} else {
-				toasts = [{ id: uid, type, message, opts }, ...toasts];
+				toasts = [{ id: uid, type, message, opts, ...customProps }, ...toasts];
 			}
 			return toasts;
 		});
