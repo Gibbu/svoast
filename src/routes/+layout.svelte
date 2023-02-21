@@ -47,7 +47,8 @@
 			'lg:p-16',
 			'prose max-w-full prose-invert text-gray-400',
 			'prose-headings:font-display prose-headings:text-white',
-			'prose-pre:leading-[1.25] prose-pre:border prose-pre:border-neutral-800',
+			'prose-pre:leading-[1.25] prose-pre:border prose-pre:border-neutral-800 prose-pre:relative prose-pre:p-0',
+			'prose-pre:overflow-hidden',
 			'prose-hr:opacity-0'
 		)}
 	>

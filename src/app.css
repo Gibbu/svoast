@@ -8,35 +8,25 @@
 	@apply px-4 h-12 rounded !bg-neutral-900 text-sm hover:!bg-neutral-800 hover:text-white transition-colors;
 }
 
-.token.comment {
-	@apply text-neutral-600;
+.shiki {
+	@apply !bg-transparent;
 }
-.token.tag,
-.token.property {
-	@apply text-red-400;
+.shiki[filename]::before {
+	content: attr(filename);
+	@apply pt-2 px-4 text-xs block -mb-2;
 }
-.token.attr-name,
-.token.boolean,
-.token.selector {
-	@apply text-orange-300;
+.shiki .language-id {
+	@apply text-xs absolute top-2 right-4 opacity-50;
 }
-.token.attr-value,
-.token.string {
-	@apply text-amber-200;
+.shiki .code-container {
+	@apply overflow-x-auto p-4;
 }
-.token.keyword,
-.token.operator {
-	@apply text-violet-400;
+.shiki .line {
+	@apply py-[2px] block;
 }
-.token.function {
-	@apply text-cyan-500;
+.shiki .line:empty {
+	@apply h-4;
 }
-.token.namespace {
-	@apply text-rose-300;
-}
-
-.token.keyword + .token.operator,
-.token.function-variable + .token.operator,
-.token.punctuation + .token.operator {
-	@apply text-neutral-400;
+.shiki .highlight {
+	@apply bg-white/10 min-w-min -mx-4 px-4;
 }

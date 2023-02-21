@@ -19,6 +19,7 @@
 </script>
 
 <div
+	id="svoast-{id}"
 	class={clsx(
 		`${types[type]}`,
 		'relative text-white font-semibold pointer-events-auto py-2 px-4 text-sm rounded overflow-hidden'

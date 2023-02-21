@@ -28,8 +28,7 @@ pnpm add svoast -D
 
 Import the `<Toasts />` component to your main layout file.
 
-```svelte
-<!-- routes/+layout.svelte -->
+```svelte filename="routes/+layout.svelte"
 <script>
 	import { Toasts } from 'svoast';
 </script>
@@ -39,8 +38,7 @@ Import the `<Toasts />` component to your main layout file.
 
 And then call the `toast` function anywhere! (on the client, of course)
 
-```svelte
-<!-- routes/settings/+page.svelte -->
+```svelte filename="routes/settings/+page.svelte"
 <script>
 	import { toast } from 'svoast';
 
@@ -135,8 +133,7 @@ If you want a completely new look and/or want to add functionality to the toasts
 Globally means setting the `component` prop on the `<Toasts />` component. All toasts that aren't defined individually will be the component you provided.  
 Downsides are you're stuck with the default props that are given by this package.
 
-```svelte
-<!-- routes/+layout.svelte -->
+```svelte filename="routes/+layout.svelte"
 <script>
 	import { Toasts } from 'svoast';
 	import Component from '$lib/Component.svelte';
@@ -155,8 +152,7 @@ The second index of the array will be any props you want to be passed down to yo
 
 **NOTE**: All props provided by this package are still passed down to your custom component (so no need to redefine everything).
 
-```svelte
-<!-- lib/LinkToast.svelte -->
+```svelte filename="lib/LinkToast.svelte"
 <script>
 	// Default props from package:
 	export let id;
@@ -177,8 +173,7 @@ The second index of the array will be any props you want to be passed down to yo
 </div>
 ```
 
-```svelte
-<!-- routes/settings/+page.svelte -->
+```svelte {6,2} filename="routes/settings/+page.svelte"
 <script>
 	import { toast } from 'svoast';
 	import LinkToast from '$lib/LinkToast.svelte';
@@ -202,8 +197,7 @@ The second index of the array will be any props you want to be passed down to yo
 If you want a dismiss button, make sure to export an `id` prop in your custom component.  
 And then you can use the `remove` method on the `toast` function.
 
-```svelte
-<!-- lib/Custom.svelte -->
+```svelte {3,9} filename="lib/Custom.svelte"
 <script>
 	import { toast } from 'svoast';
 

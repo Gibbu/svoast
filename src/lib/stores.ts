@@ -10,12 +10,13 @@ const createToast = () => {
 		const uid = ID();
 
 		let customProps: Record<string, any> = opts.component?.[1] || {};
+		const props: Toast = { id: uid, type, message, opts, ...customProps };
 
 		update((toasts) => {
 			if (get(position).includes('bottom')) {
-				toasts = [...toasts, { id: uid, type, message, opts, ...customProps }];
+				toasts = [...toasts, props];
 			} else {
-				toasts = [{ id: uid, type, message, opts, ...customProps }, ...toasts];
+				toasts = [props, ...toasts];
 			}
 			return toasts;
 		});
