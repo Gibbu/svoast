@@ -153,16 +153,17 @@ The second index of the array will be any props you want to be passed down to yo
 **NOTE**: All props provided by this package are still passed down to your custom component (so no need to redefine everything).
 
 ```svelte filename="lib/LinkToast.svelte"
-<script>
+<script lang="ts">
 	// Default props from package:
-	export let id;
-	export let message;
-	export let type;
-	export let opts;
+	export let id: number;
+	export let message: string;
+	export let type: ToastType;
+	export let duration: number;
+	export let closable: boolean;
 
 	// Custom props:
-	export let link;
-	export let newTab = false;
+	export let link: string;
+	export let newTab: boolean = false;
 </script>
 
 <div class="toast" style="--duration: {opts.duration}">

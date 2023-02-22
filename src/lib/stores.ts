@@ -1,40 +1,82 @@
 import { writable, get } from 'svelte/store';
-import { ID, DEFAULT_OPTIONS } from './utils';
+import { ID, DEFAULT_OPTIONS, sleep } from './utils';
 
-import type { ToastFunction, Toast, ToastType, ToastOptions, ToastPosition } from './types';
+import type {
+	ToastFunction,
+	ToastType,
+	ToastPosition,
+	ToastFunctionOptions,
+	ToastComponentWithCustom
+} from './types';
 
-const createToast = () => {
-	const { subscribe, update } = writable<Toast[]>([]);
+const TOASTS = writable<ToastComponentWithCustom[]>([]);
 
-	const addToast = (type: ToastType, message: string, opts: ToastOptions = DEFAULT_OPTIONS) => {
-		const uid = ID();
+const insert = (type: ToastType, message: string, opts: ToastFunctionOptions = DEFAULT_OPTIONS) => {
+	const id = ID();
 
-		let customProps: Record<string, any> = opts.component?.[1] || {};
-		const props: Toast = { id: uid, type, message, opts, ...customProps };
+	const customProps: Record<string, unknown> = opts?.component?.[1] || {};
+	const { duration, closable, component } = opts as Required<ToastFunctionOptions>;
 
-		update((toasts) => {
-			if (get(position).includes('bottom')) {
-				toasts = [...toasts, props];
-			} else {
-				toasts = [props, ...toasts];
-			}
-			return toasts;
-		});
-		setTimeout(() => remove(uid), opts.duration || DEFAULT_OPTIONS.duration);
+	const props: ToastComponentWithCustom = {
+		id,
+		type,
+		message,
+		duration,
+		closable,
+		component,
+		...customProps
 	};
 
-	const remove = (id: number) => {
-		update((toasts) => {
-			toasts = toasts.filter((toast) => toast.id !== id);
-			return toasts;
-		});
-	};
+	TOASTS.update(
+		(toasts) => (toasts = get(position).includes('bottom') ? [...toasts, props] : [props, ...toasts])
+	);
 
-	const info: ToastFunction = (message, opts = DEFAULT_OPTIONS) => addToast('info', message, opts);
-	const attention: ToastFunction = (message, opts = DEFAULT_OPTIONS) => addToast('attention', message, opts);
-	const success: ToastFunction = (message, opts = DEFAULT_OPTIONS) => addToast('success', message, opts);
-	const warning: ToastFunction = (message, opts = DEFAULT_OPTIONS) => addToast('warning', message, opts);
-	const error: ToastFunction = (message, opts = DEFAULT_OPTIONS) => addToast('error', message, opts);
+	remove(id, opts.duration || DEFAULT_OPTIONS.duration);
+};
+
+/**
+ * Remove a toast based on the ID.
+ * @param id The unique ID of the toast.
+ * @param delay The delay to remove the toast in milliseconds.
+ */
+const remove = async (id: number, delay?: number) => {
+	if (delay) await sleep(delay);
+	TOASTS.update((toasts) => toasts.filter((toast) => toast.id !== id));
+};
+
+const createStore = () => {
+	const { subscribe } = TOASTS;
+
+	/**
+	 * Add a info type toast.
+	 * @param message The message to be displayed in the toast.
+	 * @param opts Options for the toast.
+	 */
+	const info: ToastFunction = (message, opts = DEFAULT_OPTIONS) => insert('info', message, opts);
+	/**
+	 * Add an attention type toast.
+	 * @param message The message to be displayed in the toast.
+	 * @param opts Options for the toast.
+	 */
+	const attention: ToastFunction = (message, opts = DEFAULT_OPTIONS) => insert('attention', message, opts);
+	/**
+	 * Add a success type toast.
+	 * @param message The message to be displayed in the toast.
+	 * @param opts Options for the toast.
+	 */
+	const success: ToastFunction = (message, opts = DEFAULT_OPTIONS) => insert('success', message, opts);
+	/**
+	 * Add a warning type toast.
+	 * @param message The message to be displayed in the toast.
+	 * @param opts Options for the toast.
+	 */
+	const warning: ToastFunction = (message, opts = DEFAULT_OPTIONS) => insert('warning', message, opts);
+	/**
+	 * Add an error type toast.
+	 * @param message The message to be displayed in the toast.
+	 * @param opts Options for the toast.
+	 */
+	const error: ToastFunction = (message, opts = DEFAULT_OPTIONS) => insert('error', message, opts);
 
 	return {
 		info,
@@ -47,5 +89,6 @@ const createToast = () => {
 	};
 };
 
-export const toast = createToast();
+export const toast = createStore();
+
 export const position = writable<ToastPosition>('bottom-left');

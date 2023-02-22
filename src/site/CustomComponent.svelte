@@ -1,13 +1,14 @@
 <script lang="ts">
 	import clsx from 'clsx';
 
-	import type { ToastType, ToastOptions } from '$lib';
+	import type { ToastType } from '$lib';
 
 	export let message: string;
 	export let type: ToastType;
 	export let id: number;
-	export let opts: NonNullable<ToastOptions>;
+	export let duration: number;
 	export let link: string;
+	export let newTab: boolean;
 
 	const types = {
 		info: 'bg-gray-600',
@@ -27,13 +28,18 @@
 >
 	<div class="flex gap-4 items-center">
 		<p>{message}</p>
-		<a class="bg-white text-black px-3 py-1.5 rounded" href={link} target="_blank" rel="noreferrer noopener">
+		<a
+			class="bg-white text-black px-3 py-1.5 rounded"
+			href={link}
+			target={newTab ? '_blank' : undefined}
+			rel={newTab ? 'noreferrer noopener' : undefined}
+		>
 			Open
 		</a>
 	</div>
 	<div
 		class="customAnimation absolute w-full bottom-0 left-0 h-1 bg-black/30"
-		style="--duration: {opts.duration}ms"
+		style="--duration: {duration}ms"
 	/>
 </div>
 

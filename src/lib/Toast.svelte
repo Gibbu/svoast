@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { position, toast as _toast } from './stores';
 	import { AttentionIcon, CheckIcon, CrossIcon, InfoIcon, WarningIcon } from './icons';
-	import type { Toast } from './types';
+	import type { ToastComponent } from './types';
 
-	export let toast: Toast;
+	export let toast: ToastComponent;
 </script>
 
 <div
@@ -28,7 +28,7 @@
 		{/if}
 	</div>
 	{toast.message}
-	{#if toast.opts?.closable}
+	{#if toast.closable}
 		<button type="button" class="svoast-dismiss" on:click={() => _toast.remove(toast.id)}>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
