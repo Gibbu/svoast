@@ -11,11 +11,11 @@ import type {
 
 const TOASTS = writable<ToastComponentWithCustom[]>([]);
 
-const insert = (type: ToastType, message: string, opts: ToastFunctionOptions = DEFAULT_OPTIONS) => {
+const insert = async (type: ToastType, message: string, opts: ToastFunctionOptions = DEFAULT_OPTIONS) => {
 	const id = ID();
 
 	const customProps: Record<string, unknown> = opts?.component?.[1] || {};
-	const { duration, closable, component } = opts as Required<ToastFunctionOptions>;
+	const { duration, closable, component, infinite } = opts as Required<ToastFunctionOptions>;
 
 	const props: ToastComponentWithCustom = {
 		id,
@@ -24,6 +24,7 @@ const insert = (type: ToastType, message: string, opts: ToastFunctionOptions = D
 		duration,
 		closable,
 		component,
+		infinite,
 		...customProps
 	};
 
@@ -31,7 +32,10 @@ const insert = (type: ToastType, message: string, opts: ToastFunctionOptions = D
 		(toasts) => (toasts = get(position).includes('bottom') ? [...toasts, props] : [props, ...toasts])
 	);
 
-	remove(id, opts.duration || DEFAULT_OPTIONS.duration);
+	if (!infinite) {
+		await sleep(opts.duration || DEFAULT_OPTIONS.duration);
+		removeById(id);
+	}
 };
 
 /**
@@ -39,9 +43,15 @@ const insert = (type: ToastType, message: string, opts: ToastFunctionOptions = D
  * @param id The unique ID of the toast.
  * @param delay The delay to remove the toast in milliseconds.
  */
-const remove = async (id: number, delay?: number) => {
-	if (delay) await sleep(delay);
+const removeById = async (id: number) => {
 	TOASTS.update((toasts) => toasts.filter((toast) => toast.id !== id));
+};
+/**
+ * Remove a toast based on the index.
+ * @param index The index of the toast
+ */
+const removeByIndex = async (index: number) => {
+	if (get(TOASTS)[index]) TOASTS.update((toasts) => toasts.filter((_, i) => index !== i));
 };
 
 const createStore = () => {
@@ -84,7 +94,8 @@ const createStore = () => {
 		success,
 		warning,
 		error,
-		remove,
+		removeById,
+		removeByIndex,
 		subscribe
 	};
 };

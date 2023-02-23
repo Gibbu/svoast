@@ -5,7 +5,8 @@ export const ID = (): number => id++;
 
 export const DEFAULT_OPTIONS: Required<Omit<ToastFunctionOptions, 'component'>> = {
 	closable: false,
-	duration: 5000
+	duration: 5000,
+	infinite: false
 };
 
 export const sleep = async (delay: number) => {

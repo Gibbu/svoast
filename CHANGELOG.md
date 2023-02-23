@@ -1,5 +1,11 @@
 # SVoast changelog
 
+## 1.2.0
+
+- Added `infinite` prop.
+- Renamed `remove` to `removeById` to provide better clairity.
+- Added `removeByIndex` which will, remove the toast by the given index.
+
 ## 1.1.0
 
 - Rewrite of internal code.

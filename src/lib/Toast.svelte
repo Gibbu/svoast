@@ -29,7 +29,7 @@
 	</div>
 	{toast.message}
 	{#if toast.closable}
-		<button type="button" class="svoast-dismiss" on:click={() => _toast.remove(toast.id)}>
+		<button type="button" class="svoast-dismiss" on:click={() => _toast.removeById(toast.id)}>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				fill="none"
@@ -47,7 +47,7 @@
 	.svoast {
 		background: var(--svoast-bg, #333);
 		color: var(--svoast-text, #fff);
-		padding: var(--svoast-padding, 10px 15px 10px 18px);
+		padding: var(--svoast-padding, 12px 15px 12px 18px);
 		border-radius: var(--svoast-radius, 4px);
 		box-shadow: var(--svoast-shadow, 0 2px 7px hsl(0 0% 0% / 0.25));
 		font-size: var(--svoast-font-size, 14px);

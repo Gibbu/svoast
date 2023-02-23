@@ -6,6 +6,16 @@
 	import Custom from './examples/_custom.svelte';
 </script>
 
+# Features
+
+- SvelteKit and SSR compatible.
+- No Dependencies.
+- Built using TypeScript. All types are exported.
+- Themeing support using CSS variables.
+- Effortless setup. Import the component, use the function.
+
+---
+
 # Installation
 
 Install using your favourite package manager:
@@ -73,10 +83,11 @@ These _should_ be enough to express to the user what they mean.
 
 # Options
 
-There are 2 options that you can pass; `closable` and `duration`.
+There are 3 options that you can pass; `closable`, `duration` and `infinite`.
 
 `closable` will allow the user to dismiss the toast early.  
-`duration` well, will be the time the toast is visible.
+`duration` well, will be the time the toast is visible.  
+`infinite` will ignore `duration` and will never be removed unless you give the user a dismiss button.
 
 <Options />
 
@@ -128,10 +139,11 @@ SVoast uses CSS variables.
 
 If you want a completely new look and/or want to add functionality to the toasts, you can either do it globally or individually.
 
-### Setting global toasts
+### Global toasts
 
-Globally means setting the `component` prop on the `<Toasts />` component. All toasts that aren't defined individually will be the component you provided.  
-Downsides are you're stuck with the default props that are given by this package.
+Providing a component to the `component` prop on the `<Toasts />` component will overwrite the default toasts.  
+There's a draw back to this though; you will be stuck with the props provided by this package.  
+View the section below to see what the default props are.
 
 ```svelte filename="routes/+layout.svelte"
 <script>
@@ -144,9 +156,9 @@ Downsides are you're stuck with the default props that are given by this package
 
 ---
 
-### Setting individual toasts
+### Individual toasts
 
-If you wish for freedom, set the component on each `toast` call with the `component` provided in the options object.  
+If you require to display a specific toast for an action, simply provide the `component` option on the `toast` call.  
 The first index of the prop will be the custom component you want to use.  
 The second index of the array will be any props you want to be passed down to your component.
 
@@ -160,6 +172,7 @@ The second index of the array will be any props you want to be passed down to yo
 	export let type: ToastType;
 	export let duration: number;
 	export let closable: boolean;
+	export let infinite: boolean;
 
 	// Custom props:
 	export let link: string;
@@ -193,7 +206,7 @@ The second index of the array will be any props you want to be passed down to yo
 
 ---
 
-### Adding a custom dismiss button
+### Custom dismiss button
 
 If you want a dismiss button, make sure to export an `id` prop in your custom component.  
 And then you can use the `remove` method on the `toast` function.
@@ -208,6 +221,6 @@ And then you can use the `remove` method on the `toast` function.
 
 <div>
 	{message}
-	<button on:click={() => toast.remove(id)}>X</button>
+	<button on:click={() => toast.removeById(id)}>X</button>
 </div>
 ```
