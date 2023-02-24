@@ -14,10 +14,6 @@
 			});
 		else toast.success(`This toast will disappear in ${duration / 1000}s.`, { duration, closable });
 	};
-
-	const remove = () => {
-		toast.removeByIndex(0);
-	};
 </script>
 
 <div class="flex gap-4 flex-col lg:items-center lg:flex-row">
@@ -35,5 +31,6 @@
 	</div>
 
 	<button class="btn" type="button" on:click={launch}>Add toast</button>
-	<button type="button" class="btn" on:click={remove}>Remove oldest</button>
+	<button type="button" class="btn" on:click={() => toast.removeByIndex(0)}>Remove oldest</button>
+	<button type="button" class="btn" on:click={() => toast.removeAll()}>Remove all</button>
 </div>

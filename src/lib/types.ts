@@ -15,7 +15,7 @@ export type ToastFunction = (message: string, opts?: ToastFunctionOptions) => vo
 export type ToastCustomComponent = [ComponentType, Record<string, unknown>];
 
 export interface ToastFunctionOptions {
-	/** Allow the toast to be closable. */
+	/** Allow the toast to be dismissed. */
 	closable?: boolean;
 	/** The duration of the toast in milliseconds */
 	duration?: number;

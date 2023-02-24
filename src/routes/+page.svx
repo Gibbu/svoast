@@ -165,21 +165,21 @@ The second index of the array will be any props you want to be passed down to yo
 **NOTE**: All props provided by this package are still passed down to your custom component (so no need to redefine everything).
 
 ```svelte filename="lib/LinkToast.svelte"
-<script lang="ts">
+<script>
 	// Default props from package:
-	export let id: number;
-	export let message: string;
-	export let type: ToastType;
-	export let duration: number;
-	export let closable: boolean;
-	export let infinite: boolean;
+	export let id;
+	export let message;
+	export let type;
+	export let duration;
+	export let closable;
+	export let infinite;
 
 	// Custom props:
-	export let link: string;
-	export let newTab: boolean = false;
+	export let link;
+	export let newTab = false;
 </script>
 
-<div class="toast" style="--duration: {opts.duration}">
+<div class="toast {type}" style="--duration: {duration}">
 	<p>{message}</p>
 	<a href={link} target={newTab ? '_blank' : undefined} rel={newTab ? 'noreferrer noopener' : undefined}>
 		View Page
@@ -224,3 +224,42 @@ And then you can use the `remove` method on the `toast` function.
 	<button on:click={() => toast.removeById(id)}>X</button>
 </div>
 ```
+
+---
+
+# API
+
+### Methods
+
+| Name          | Description                                                     |
+| ------------- | --------------------------------------------------------------- |
+| info          | Usually indicates information to the user, but isn't important. |
+| attention     | Indicate to the user with important information.                |
+| succcess      | Indicates to the user something good has happened.              |
+| warning       | Tell the user something may be wrong but isn't critical.        |
+| error         | Alert the user something critical has happened.                 |
+| removeById    | Remove the toast by the unique ID.                              |
+| removeByIndex | Remove the toast by index position.                             |
+| removeAll     | Remove all toasts.                                              |
+
+### Options
+
+| Property  | Type                   | Description                                                                                          |
+| --------- | ---------------------- | ---------------------------------------------------------------------------------------------------- |
+| closable  | `boolean`              | Allow the toast to be dismissed.                                                                     |
+| duration  | `number`               | The duration of the toast in milliseconds. After said time, the toast will remove itself.            |
+| component | `ToastCustomComponent` | Allow a custom component to be rendered.                                                             |
+| infinite  | `boolean`              | Ignores `duration` and will never expire unless dismissed or removed by any of the `remove` methods. |
+
+### Exported props
+
+These are the props that are available to use if you wish to use a custom component.
+
+| Name     | Type        |
+| -------- | ----------- |
+| id       | `number`    |
+| type     | `ToastType` |
+| message  | `string`    |
+| closable | `boolean`   |
+| duration | `number`    |
+| infinite | `boolean`   |

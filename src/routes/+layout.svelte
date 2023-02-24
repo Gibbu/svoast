@@ -55,7 +55,8 @@
 			'prose-headings:font-display prose-headings:text-white prose-headings:scroll-mt-8',
 			'prose-pre:leading-[1.25] prose-pre:border prose-pre:border-neutral-800 prose-pre:relative prose-pre:p-0',
 			'prose-pre:overflow-hidden',
-			'prose-hr:opacity-0'
+			'prose-hr:opacity-0',
+			'prose-thead:border-neutral-800'
 		)}
 	>
 		<slot />

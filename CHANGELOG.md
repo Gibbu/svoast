@@ -1,5 +1,10 @@
 # SVoast changelog
 
+## 1.2.1
+
+- Added `removeAll` method.
+- Made `removeById` and `removeByIndex` synchronous.
+
 ## 1.2.0
 
 - Added `infinite` prop.

@@ -43,15 +43,21 @@ const insert = async (type: ToastType, message: string, opts: ToastFunctionOptio
  * @param id The unique ID of the toast.
  * @param delay The delay to remove the toast in milliseconds.
  */
-const removeById = async (id: number) => {
+const removeById = (id: number) => {
 	TOASTS.update((toasts) => toasts.filter((toast) => toast.id !== id));
 };
 /**
  * Remove a toast based on the index.
  * @param index The index of the toast
  */
-const removeByIndex = async (index: number) => {
+const removeByIndex = (index: number) => {
 	if (get(TOASTS)[index]) TOASTS.update((toasts) => toasts.filter((_, i) => index !== i));
+};
+/**
+ * Removes all toasts.
+ */
+const removeAll = () => {
+	TOASTS.set([]);
 };
 
 const createStore = () => {
@@ -96,6 +102,7 @@ const createStore = () => {
 		error,
 		removeById,
 		removeByIndex,
+		removeAll,
 		subscribe
 	};
 };
