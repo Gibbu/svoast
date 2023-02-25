@@ -41,12 +41,10 @@
 		});
 
 		activeHash = hash;
-
-		replace();
 	};
 	const replace = debounce(() => {
 		window.history.replaceState(null, '', $page.url.pathname + activeHash);
-	}, 250);
+	}, 400);
 </script>
 
 <svelte:window on:scroll={handleScroll} />

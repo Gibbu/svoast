@@ -9,9 +9,10 @@
 # Features
 
 - SvelteKit and SSR compatible.
-- No Dependencies.
+- Zero Dependencies.
 - Built using TypeScript. All types are exported.
 - Themeing support using CSS variables.
+- Optional custom components.
 - Effortless setup. Import the component, use the function.
 
 ---
@@ -122,8 +123,15 @@ SVoast uses CSS variables.
 	--svoast-dismiss-gap: 8px;
 	--svoast-max-width: unset;
 
-	/* The current colour of the toast, depending on the type. */
+	/* The current colour of the toast, depending on the type */
 	--svoast-colour: '';
+
+	/* Colour for each type */
+	--svoast-info-colour: #888;
+	--svoast-attention-colour: #38bdf8;
+	--svoast-success-colour: #4ade80;
+	--svoast-warning-colour: #fb923c;
+	--svoast-error-colour: #ef4444;
 
 	/* The coloured bar */
 	--svoast-bar-width: 3px;
