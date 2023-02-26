@@ -24,13 +24,16 @@
 {/key}
 
 <section
-	class="h-[450px] flex flex-col justify-center items-center text-center bg-black border-b border-neutral-800 relative"
+	class="h-[450px] flex justify-center items-center text-center bg-black border-b border-neutral-800 relative"
 >
-	<h1 class="text-7xl font-display text-white font-bold relative flex items-start">
-		SVoast
-		<span class="opacity-30 text-sm absolute -right-8 select-none pointer-events-none">v{version}</span>
-	</h1>
-	<p class="my-4">A simple toast component for Svelte</p>
+	<div class="w-28 h-28 bg-white mr-4" style="mask: url('/svoast-icon-solid.svg') center/cover;" />
+	<div>
+		<h1 class="text-7xl font-display text-white font-bold relative flex items-start">
+			SVoast
+			<span class="opacity-30 text-sm absolute -right-4 select-none pointer-events-none">v{version}</span>
+		</h1>
+		<p>A simple toast component for Svelte</p>
+	</div>
 	<a
 		href="https://github.com/Gibbu/svoast"
 		target="_blank"

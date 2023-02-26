@@ -1,13 +1,12 @@
 <script lang="ts">
 	import { tick } from 'svelte';
-	import { page } from '$app/stores';
 	import { debounce } from '$site/utils';
 
 	export let content: HTMLElement;
 
 	let headings: HTMLHeadElement[] = [];
 	let active: HTMLHeadElement | undefined;
-	let activeHash: string;
+	let activeHash: string | undefined = undefined;
 
 	$: content && mount();
 
@@ -26,6 +25,11 @@
 				.reverse()
 				.find((heading) => heading.offsetTop - 2 <= window.scrollY + offsetHeight);
 
+			if (!active) {
+				activeHash = undefined;
+				replaceState(undefined);
+			}
+
 			if (active) {
 				activeHash = '#' + active.id;
 				replace();
@@ -39,12 +43,14 @@
 		document.querySelector(hash)?.scrollIntoView({
 			behavior: 'smooth'
 		});
-
-		activeHash = hash;
 	};
-	const replace = debounce(() => {
-		window.history.replaceState(null, '', $page.url.pathname + activeHash);
-	}, 400);
+
+	const replace = debounce(() => replaceState(activeHash), 250);
+
+	const replaceState = (hash: string | undefined) => {
+		const _hash = (hash?.startsWith('#') ? hash : '#' + hash).toLowerCase();
+		window.history.replaceState(null, '', hash ? window.location.pathname + _hash : window.location.pathname);
+	};
 </script>
 
 <svelte:window on:scroll={handleScroll} />
