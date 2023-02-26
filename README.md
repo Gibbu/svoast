@@ -33,3 +33,6 @@ View more information at: https://svoast.vercel.app
 ## Licence
 
 See the [LICENSE](https://github.com/Gibbu/svoast/blob/main/LICENSE) file for license rights and limitations (MIT).
+
+
+SVoast logo by [Bruce Wayyn](https://github.com/brucewayyn).
