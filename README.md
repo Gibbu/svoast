@@ -1,6 +1,12 @@
-# SVoast
+<p align="center">
+	<img width="300px" src="https://user-images.githubusercontent.com/122556307/221425114-757c3e73-3b0a-4df8-a5df-4475a7277124.svg" />
+</p>
 
-A simple toast component for Svelte.
+<p align="center">
+	A simple toast component for Svelte.
+</p>
+
+---
 
 ## Usage
 
