@@ -26,7 +26,10 @@
 <section
 	class="h-[450px] flex justify-center items-center text-center bg-black border-b border-neutral-800 relative"
 >
-	<div class="w-28 h-28 bg-white mr-4" style="mask: url('/svoast-icon-solid.svg') center/cover;" />
+	<div
+		class="w-28 h-28 bg-white mr-4"
+		style="mask: url('/svoast-icon-solid.svg') center/cover; -webkit-mask: url('/svoast-icon-solid.svg') center/cover;"
+	/>
 	<div>
 		<h1 class="text-7xl font-display text-white font-bold relative flex items-start">
 			SVoast
