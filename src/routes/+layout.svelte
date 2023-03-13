@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import '../app.css';
 	import clsx from 'clsx';
 	import { version } from '../../package.json';
@@ -11,11 +10,9 @@
 
 	let content: HTMLElement;
 
-	onMount(() => {
-		toast.attention("You're looking beautiful today!", {
-			duration: 10000,
-			closable: true
-		});
+	toast.attention("You're looking beautiful today!", {
+		duration: 10000,
+		closable: true
 	});
 </script>
 

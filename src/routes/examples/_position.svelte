@@ -2,7 +2,7 @@
 	import { position } from '$site/stores';
 	import type { ToastPosition } from '$lib';
 
-	let pos: ToastPosition = 'bottom-left';
+	let pos: ToastPosition = 'bottom-right';
 
 	const update = () => {
 		$position = pos;

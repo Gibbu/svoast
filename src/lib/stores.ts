@@ -1,5 +1,5 @@
 import { writable, get } from 'svelte/store';
-import { ID, DEFAULT_OPTIONS, sleep } from './utils';
+import { ID, DEFAULT_OPTIONS } from './utils';
 
 import type {
 	ToastFunction,
@@ -11,11 +11,12 @@ import type {
 
 const TOASTS = writable<ToastComponentWithCustom[]>([]);
 
-const insert = async (type: ToastType, message: string, opts: ToastFunctionOptions = DEFAULT_OPTIONS) => {
+const insert = (type: ToastType, message: string, opts: ToastFunctionOptions = DEFAULT_OPTIONS) => {
 	const id = ID();
 
 	const customProps: Record<string, unknown> = opts?.component?.[1] || {};
-	const { duration, closable, component, infinite } = opts as Required<ToastFunctionOptions>;
+	const { duration, closable, component, infinite, rich, onMount, onRemove } =
+		opts as Required<ToastFunctionOptions>;
 
 	const props: ToastComponentWithCustom = {
 		id,
@@ -25,37 +26,31 @@ const insert = async (type: ToastType, message: string, opts: ToastFunctionOptio
 		closable,
 		component,
 		infinite,
+		rich,
 		...customProps
 	};
+
+	if (typeof window !== 'undefined') onMount?.();
 
 	TOASTS.update(
 		(toasts) => (toasts = get(position).includes('bottom') ? [...toasts, props] : [props, ...toasts])
 	);
 
 	if (!infinite) {
-		await sleep(opts.duration || DEFAULT_OPTIONS.duration);
-		removeById(id);
+		setTimeout(() => {
+			removeById(id);
+			onRemove?.();
+		}, opts.duration || DEFAULT_OPTIONS.duration);
 	}
 };
 
-/**
- * Remove a toast based on the ID.
- * @param id The unique ID of the toast.
- * @param delay The delay to remove the toast in milliseconds.
- */
 const removeById = (id: number) => {
-	TOASTS.update((toasts) => toasts.filter((toast) => toast.id !== id));
+	if (get(TOASTS).find((el) => el.id === id))
+		TOASTS.update((toasts) => toasts.filter((toast) => toast.id !== id));
 };
-/**
- * Remove a toast based on the index.
- * @param index The index of the toast
- */
 const removeByIndex = (index: number) => {
 	if (get(TOASTS)[index]) TOASTS.update((toasts) => toasts.filter((_, i) => index !== i));
 };
-/**
- * Removes all toasts.
- */
 const removeAll = () => {
 	TOASTS.set([]);
 };
@@ -63,45 +58,61 @@ const removeAll = () => {
 const createStore = () => {
 	const { subscribe } = TOASTS;
 
-	/**
-	 * Add a info type toast.
-	 * @param message The message to be displayed in the toast.
-	 * @param opts Options for the toast.
-	 */
 	const info: ToastFunction = (message, opts = DEFAULT_OPTIONS) => insert('info', message, opts);
-	/**
-	 * Add an attention type toast.
-	 * @param message The message to be displayed in the toast.
-	 * @param opts Options for the toast.
-	 */
 	const attention: ToastFunction = (message, opts = DEFAULT_OPTIONS) => insert('attention', message, opts);
-	/**
-	 * Add a success type toast.
-	 * @param message The message to be displayed in the toast.
-	 * @param opts Options for the toast.
-	 */
 	const success: ToastFunction = (message, opts = DEFAULT_OPTIONS) => insert('success', message, opts);
-	/**
-	 * Add a warning type toast.
-	 * @param message The message to be displayed in the toast.
-	 * @param opts Options for the toast.
-	 */
 	const warning: ToastFunction = (message, opts = DEFAULT_OPTIONS) => insert('warning', message, opts);
-	/**
-	 * Add an error type toast.
-	 * @param message The message to be displayed in the toast.
-	 * @param opts Options for the toast.
-	 */
 	const error: ToastFunction = (message, opts = DEFAULT_OPTIONS) => insert('error', message, opts);
 
 	return {
+		/**
+		 * Add a info type toast.\
+		 * Usually indicates information to the user, but isn’t important.
+		 * @param message The message to be displayed in the toast.
+		 * @param opts Options for the toast.
+		 */
 		info,
+		/**
+		 * Add an attention type toast.\
+		 * Indicate to the user with important information.
+		 * @param message The message to be displayed in the toast.
+		 * @param opts Options for the toast.
+		 */
 		attention,
+		/**
+		 * Add a success type toast.\
+		 * Indicates to the user something good has happened.
+		 * @param message The message to be displayed in the toast.
+		 * @param opts Options for the toast.
+		 */
 		success,
+		/**
+		 * Add a warning type toast.\
+		 * Tell the user something may be wrong but isn’t critical.
+		 * @param message The message to be displayed in the toast.
+		 * @param opts Options for the toast.
+		 */
 		warning,
+		/**
+		 * Add an error type toast.\
+		 * Alert the user something critical has happened.
+		 * @param message The message to be displayed in the toast.
+		 * @param opts Options for the toast.
+		 */
 		error,
+		/**
+		 * Remove a toast based on the unique ID.
+		 * @param id The unique ID of the toast.
+		 */
 		removeById,
+		/**
+		 * Remove a toast based on the index.
+		 * @param index The index of the toast
+		 */
 		removeByIndex,
+		/**
+		 * Removes all toasts.
+		 */
 		removeAll,
 		subscribe
 	};

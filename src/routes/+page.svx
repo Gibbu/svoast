@@ -217,7 +217,7 @@ The second index of the array will be any props you want to be passed down to yo
 ### Custom dismiss button
 
 If you want a dismiss button, make sure to export an `id` prop in your custom component.  
-And then you can use the `remove` method on the `toast` function.
+And then you can use the `removeById` method on the `toast` function.
 
 ```svelte {3,9} filename="lib/Custom.svelte"
 <script>
@@ -252,12 +252,15 @@ And then you can use the `remove` method on the `toast` function.
 
 ### Options
 
-| Property  | Type                   | Description                                                                                          |
-| --------- | ---------------------- | ---------------------------------------------------------------------------------------------------- |
-| closable  | `boolean`              | Allow the toast to be dismissed.                                                                     |
-| duration  | `number`               | The duration of the toast in milliseconds. After said time, the toast will remove itself.            |
-| component | `ToastCustomComponent` | Allow a custom component to be rendered.                                                             |
-| infinite  | `boolean`              | Ignores `duration` and will never expire unless dismissed or removed by any of the `remove` methods. |
+| Property  | Type                   | Description                                                                                                |
+| --------- | ---------------------- | ---------------------------------------------------------------------------------------------------------- |
+| closable  | `boolean`              | Allow the toast to be dismissed.                                                                           |
+| duration  | `number`               | The duration of the toast in milliseconds. After said time, the toast will remove itself.                  |
+| component | `ToastCustomComponent` | Allow a custom component to be rendered.                                                                   |
+| infinite  | `boolean`              | Ignores `duration` and will never expire unless dismissed or removed by any of the `remove` methods.       |
+| rich      | `boolean`              | Allow the use of HTML in the message.<br>**CAUTION**: Make sure to sanitize ALL content provided by users. |
+| onMount   | `Function`             | Life cycle hook that runs when the toast is added to the store.                                            |
+| onRemove  | `Function`             | Life cycle hook that runs when the toast is removed from the store, by any means.                          |
 
 ### Exported props
 

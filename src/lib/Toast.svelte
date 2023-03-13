@@ -27,7 +27,11 @@
 			<CrossIcon />
 		{/if}
 	</div>
-	{toast.message}
+	{#if toast.rich}
+		{@html toast.message}
+	{:else}
+		{toast.message}
+	{/if}
 	{#if toast.closable}
 		<button type="button" class="svoast-dismiss" on:click={() => _toast.removeById(toast.id)}>
 			<svg

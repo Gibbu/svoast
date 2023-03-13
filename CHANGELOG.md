@@ -1,5 +1,11 @@
 # SVoast changelog
 
+## 1.3.0
+
+- Added `rich` option to allow for rich HTML content in the message.
+- Added `onMount` and `onRemove` life cycle hooks.
+- `removeById` checks if ID exists in store before removing.
+
 ## 1.2.1
 
 - Added `removeAll` method.

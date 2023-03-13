@@ -1,18 +1,11 @@
-import type { ToastFunctionOptions } from './types';
+import type { ToastComponentOptions } from './types';
 
 let id: number = 1;
 export const ID = (): number => id++;
 
-export const DEFAULT_OPTIONS: Required<Omit<ToastFunctionOptions, 'component'>> = {
+export const DEFAULT_OPTIONS: ToastComponentOptions = {
 	closable: false,
 	duration: 5000,
-	infinite: false
-};
-
-export const sleep = async (delay: number) => {
-	return new Promise((resolve) => {
-		setTimeout(() => {
-			resolve(true);
-		}, delay);
-	});
+	infinite: false,
+	rich: false
 };
