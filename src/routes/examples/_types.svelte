@@ -4,7 +4,16 @@
 
 	let types: ToastType[] = ['info', 'attention', 'success', 'warning', 'error'];
 	let type: ToastType = 'error';
-	let message: string = 'There was an error. Please try again.';
+
+	const messages = {
+		info: 'You can press CTRL + K to focus the search bar.',
+		attention: 'View our latest announcement post here.',
+		success: 'Profile successfully updated.',
+		warning: 'One of the fields do not meet the requirements.',
+		error: 'This content is no longer accessable.'
+	};
+
+	$: message = messages[type];
 
 	const launchToast = () => {
 		toast[type](message);

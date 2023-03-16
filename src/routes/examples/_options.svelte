@@ -4,15 +4,25 @@
 	let duration: number = 3000;
 	let closable: boolean = false;
 	let infinite: boolean = false;
+	let rich: boolean = false;
 
 	const launch = () => {
-		if (infinite)
-			toast.success(`This toast ${closable ? 'can' : 'will never'} disappear.`, {
+		if (infinite) {
+			const message = rich
+				? `This toast <u><strong>${closable ? 'can' : 'will never'}</strong></u> disappear.`
+				: `This toast ${closable ? 'can' : 'will never'} disappear.`;
+			toast.attention(message, {
 				duration,
 				closable,
-				infinite
+				infinite,
+				rich
 			});
-		else toast.success(`This toast will disappear in ${duration / 1000}s.`, { duration, closable });
+		} else {
+			const message = rich
+				? `This toast will disappear in <u><strong>${duration / 1000}s</strong></u>.`
+				: `This toast will disappear in ${duration / 1000}s.`;
+			toast.attention(message, { duration, closable, rich });
+		}
 	};
 </script>
 
@@ -28,8 +38,13 @@
 			<input type="checkbox" bind:checked={infinite} />
 			<p>Infinite</p>
 		</label>
+		<label class="inline-flex items-center gap-2 cursor-pointer">
+			<input type="checkbox" bind:checked={rich} />
+			<p>Rich Content</p>
+		</label>
 	</div>
-
+</div>
+<div class="flex gap-4">
 	<button class="btn" type="button" on:click={launch}>Add toast</button>
 	<button type="button" class="btn" on:click={() => toast.removeByIndex(0)}>Remove oldest</button>
 	<button type="button" class="btn" on:click={() => toast.removeAll()}>Remove all</button>

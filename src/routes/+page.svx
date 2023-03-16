@@ -71,12 +71,13 @@ And then call the `toast` function anywhere! (on the client, of course)
 
 ---
 
-# Types
+# Attention levels
 
-You have 5 types to toasts to play with.
+You have 5 levels to toasts to play with.
 
 Info, attention, success, warning, and error.  
-These _should_ be enough to express to the user what they mean.
+These _should_ be enough to express to the user what they mean.  
+If not, check out the [custom components](#custom-components) docs where you can completely customize the look and functionality of your toasts.
 
 <Types />
 
@@ -84,11 +85,12 @@ These _should_ be enough to express to the user what they mean.
 
 # Options
 
-There are 3 options that you can pass; `closable`, `duration` and `infinite`.
+There are 4 options that you can pass:
 
-`closable` will allow the user to dismiss the toast early.  
-`duration` well, will be the time the toast is visible.  
-`infinite` will ignore `duration` and will never be removed unless you give the user a dismiss button.
+- `closable` will allow the user to dismiss the toast early.
+- `duration` well, will be the time the toast is visible.
+- `infinite` will ignore `duration` and will never be removed unless you give the user a dismiss button.
+- `rich` will render the message as a HTML string. So providing `<strong>Warning</strong>: there was an error.` will render the `strong` tags.
 
 <Options />
 
@@ -151,7 +153,7 @@ If you want a completely new look and/or want to add functionality to the toasts
 
 Providing a component to the `component` prop on the `<Toasts />` component will overwrite the default toasts.  
 There's a draw back to this though; you will be stuck with the props provided by this package.  
-View the section below to see what the default props are.
+View the [API](#api) table below to see what the default props are.
 
 ```svelte filename="routes/+layout.svelte"
 <script>
@@ -166,9 +168,9 @@ View the section below to see what the default props are.
 
 ### Individual toasts
 
-If you require to display a specific toast for an action, simply provide the `component` option on the `toast` call.  
-The first index of the prop will be the custom component you want to use.  
-The second index of the array will be any props you want to be passed down to your component.
+If you require to display a specific toast for an action, provide the `component` option on the `toast` call.  
+The first index of the array will be the custom component you want to use.  
+The second index of the array will be an object of any props you want to be passed down to your component.
 
 **NOTE**: All props provided by this package are still passed down to your custom component (so no need to redefine everything).
 
