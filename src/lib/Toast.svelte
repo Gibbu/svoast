@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { position, toast as _toast } from './stores';
-	import { AttentionIcon, CheckIcon, CrossIcon, InfoIcon, WarningIcon } from './icons';
+	import Icon from './Icon.svelte';
+	import { toast as _toast, position } from './stores';
 	import type { ToastComponent } from './types';
 
 	export let toast: ToastComponent;
@@ -15,17 +15,7 @@
 >
 	<div class="svoast-bar" />
 	<div class="svoast-icon">
-		{#if toast.type === 'info'}
-			<InfoIcon />
-		{:else if toast.type === 'attention'}
-			<AttentionIcon />
-		{:else if toast.type === 'success'}
-			<CheckIcon />
-		{:else if toast.type === 'warning'}
-			<WarningIcon />
-		{:else if toast.type === 'error'}
-			<CrossIcon />
-		{/if}
+		<Icon type={toast.type} />
 	</div>
 	<div class="svoast-message">
 		{#if toast.rich}
