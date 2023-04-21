@@ -1,5 +1,9 @@
 # SVoast changelog
 
+## 2.0.0
+
+- Merged `Attention/Check/Cross/Info/Warning.svelte` into a single `Icon.svelte` which receives a `ToastType` and looks up the SVG icon data from a map.
+
 ## 1.3.0
 
 - Added `rich` option to allow for rich HTML content in the message.
