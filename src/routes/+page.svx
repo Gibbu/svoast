@@ -73,7 +73,7 @@ And then call the `toast` function anywhere! (on the client, of course)
 
 # Attention levels
 
-You have 5 levels to toasts to play with.
+You have 5 levels of toasts to play with.
 
 Info, attention, success, warning, and error.  
 These _should_ be enough to express to the user what they mean.  
