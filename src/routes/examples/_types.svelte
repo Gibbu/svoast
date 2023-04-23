@@ -3,7 +3,7 @@
 	import type { ToastType } from '$lib';
 
 	let types: ToastType[] = ['info', 'attention', 'success', 'warning', 'error'];
-	let type: ToastType = 'error';
+	let type: ToastType = 'success';
 
 	const messages = {
 		info: 'You can press CTRL + K to focus the search bar.',

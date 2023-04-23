@@ -6,7 +6,7 @@
 	export let message: string;
 	export let type: ToastType;
 	export let id: number;
-	export let duration: number;
+	export let duration: number | string;
 	export let link: string;
 	export let newTab: boolean;
 
@@ -16,7 +16,7 @@
 		success: 'bg-green-500',
 		warning: 'bg-orange-500',
 		error: 'bg-red-500'
-	} as const;
+	};
 </script>
 
 <div

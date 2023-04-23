@@ -7,7 +7,7 @@
 
 	async function save() {
 		toast[type]('Custom component!', {
-			duration: 5000,
+			duration: '10s',
 			component: [Custom, { link: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', newTab: true }]
 		});
 	}

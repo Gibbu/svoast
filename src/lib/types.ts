@@ -27,7 +27,7 @@ export interface ToastFunctionOptions extends ToastLifeCycles {
 	/** Allow the toast to be dismissed. */
 	closable?: boolean;
 	/** The duration of the toast in milliseconds */
-	duration?: number;
+	duration?: number | string;
 	/** A custom component to be rendered. */
 	component?: ToastCustomComponent;
 	/** Never remove the toast. */

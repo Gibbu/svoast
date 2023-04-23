@@ -1,5 +1,12 @@
 # SVoast changelog
 
+## 2.1.0
+
+- Allowed for string duration timers. To allow for better clarity for those who wish.
+  - `1.25s` = `1250`
+  - `150ms` = `150`
+  - `0.75s` = `750`
+
 ## 2.0.0
 
 - Merged `Attention/Check/Cross/Info/Warning.svelte` into a single `Icon.svelte` which receives a `ToastType` and looks up the SVG icon data from a map.
