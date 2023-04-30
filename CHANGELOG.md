@@ -1,5 +1,9 @@
 # SVoast changelog
 
+## 2.1.1
+
+- Fixed default icons being shrunk by max width.
+
 ## 2.1.0
 
 - Allowed for string duration timers. To allow for better clarity for those who wish.

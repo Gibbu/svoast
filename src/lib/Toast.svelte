@@ -63,13 +63,17 @@
 			background: var(--svoast-colour);
 		}
 		&-icon {
-			width: var(--svoast-icon-size, 21px);
-			height: var(--svoast-icon-size, 21px);
+			min-width: var(--svoast-icon-size, 21px);
+			min-height: var(--svoast-icon-size, 21px);
+			max-width: var(--svoast-icon-size, 21px);
+			max-height: var(--svoast-icon-size, 21px);
 			color: var(--svoast-colour);
 		}
 		&-dismiss {
-			width: var(--svoast-icon-size, 21px);
-			height: var(--svoast-icon-size, 21px);
+			min-width: var(--svoast-icon-size, 21px);
+			min-height: var(--svoast-icon-size, 21px);
+			max-width: var(--svoast-icon-size, 21px);
+			max-height: var(--svoast-icon-size, 21px);
 			padding: var(--svoast-icon-padding, 2px);
 		}
 
