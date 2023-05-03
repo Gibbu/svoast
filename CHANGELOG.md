@@ -1,5 +1,10 @@
 # SVoast changelog
 
+## 2.1.2
+
+- Better handling of default options and animations.
+- Better comments on types and props.
+
 ## 2.1.1
 
 - Fixed default icons being shrunk by max width.

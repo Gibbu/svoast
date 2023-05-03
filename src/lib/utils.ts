@@ -1,4 +1,4 @@
-import type { ToastComponentOptions } from './types';
+import type { ToastComponentOptions, ToastAnimation } from './types';
 
 let id: number = 1;
 
@@ -18,6 +18,15 @@ export const DEFAULT_OPTIONS: ToastComponentOptions = {
 };
 
 /**
+ * Default animation for the toasts.
+ */
+export const DEFAULT_ANIMATION: ToastAnimation = {
+	start: 0.75,
+	opacity: 0,
+	duration: 150
+};
+
+/**
  * Transforms the string value to a number.
  *
  * Supported identifiers: `ms`, `s`
@@ -32,4 +41,22 @@ export const parseDuration = (value: number | string): number => {
 
 	if (/(?=ms)(?!s)/.test(value)) return duration;
 	return duration * 1000;
+};
+
+/**
+ * Shallow merges two objects while replacing the same keys.
+ * @param original The original object to be overwritten.
+ * @param newObject The object to be added to the original object, replacing existing keys.
+ */
+export const objectMerge = <
+	TOriginal extends Record<string, any>,
+	TNew extends Record<string, any> | undefined
+>(
+	original: TOriginal,
+	newObject: TNew
+): TOriginal & TNew => {
+	return {
+		...original,
+		...newObject
+	};
 };

@@ -1,5 +1,5 @@
 import { writable, get } from 'svelte/store';
-import { ID, DEFAULT_OPTIONS, parseDuration } from './utils';
+import { ID, DEFAULT_OPTIONS, parseDuration, objectMerge } from './utils';
 
 import type {
 	ToastFunction,
@@ -15,14 +15,17 @@ const insert = (type: ToastType, message: string, opts: ToastFunctionOptions = D
 	const id = ID();
 
 	const customProps: Record<string, unknown> = opts?.component?.[1] || {};
-	const { closable, component, infinite, rich, onMount, onRemove } = opts as Required<ToastFunctionOptions>;
-	const duration = parseDuration(opts.duration || DEFAULT_OPTIONS.duration);
+	const { closable, component, infinite, rich, onMount, onRemove, duration } = objectMerge(
+		DEFAULT_OPTIONS,
+		opts
+	) as Required<ToastFunctionOptions>;
+	const DURATION = parseDuration(duration);
 
 	const props: ToastComponentWithCustom = {
 		id,
 		type,
 		message,
-		duration,
+		duration: DURATION,
 		closable,
 		component,
 		infinite,
@@ -40,7 +43,7 @@ const insert = (type: ToastType, message: string, opts: ToastFunctionOptions = D
 		setTimeout(() => {
 			removeById(id);
 			onRemove?.();
-		}, duration);
+		}, DURATION);
 	}
 };
 

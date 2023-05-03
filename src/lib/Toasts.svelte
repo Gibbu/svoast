@@ -3,19 +3,27 @@
 	import { toast as toasts, position as toastPos } from './stores';
 	import { scale } from 'svelte/transition';
 	import { flip } from 'svelte/animate';
+	import { DEFAULT_ANIMATION, objectMerge } from './utils';
 
-	import type { ToastPosition } from './types';
+	import type { ToastPosition, ToastAnimation } from './types';
 	import type { ComponentType } from 'svelte';
 
+	/**
+	 * The position of the toasts.
+	 *
+	 * The will also effect how the toasts stack on each other.
+	 */
 	export let position: ToastPosition = 'bottom-left';
-	export let animation = {
-		start: 0.75,
-		opacity: 0,
-		duration: 150
-	};
+
+	/** The animation properties. */
+	export let animation: ToastAnimation | undefined = undefined;
+
+	/** The default component to be rendered. */
 	export let component: ComponentType | undefined = undefined;
 
 	$toastPos = position;
+
+	const ANIMATION = objectMerge(DEFAULT_ANIMATION, animation);
 </script>
 
 <div class="svoast-container" data-position={position}>
@@ -23,9 +31,9 @@
 		<div
 			class="svoast-wrapper"
 			data-position={position}
-			in:scale={{ start: animation.start, duration: animation.duration }}
-			out:scale={{ duration: animation.duration }}
-			animate:flip={{ duration: animation.duration }}
+			in:scale={{ start: ANIMATION.start, opacity: ANIMATION.opacity, duration: ANIMATION.duration }}
+			out:scale={{ duration: ANIMATION.duration }}
+			animate:flip={{ duration: ANIMATION.duration }}
 		>
 			{#if toast?.component || component}
 				{@const { component, ...props } = toast}

@@ -3,9 +3,9 @@
 	import clsx from 'clsx';
 	import { version } from '../../package.json';
 
-	import { position } from '$site/stores';
 	import { Toasts, toast } from '$lib';
 
+	import { position } from '$site/stores';
 	import Toc from '$site/TOC.svelte';
 
 	let content: HTMLElement;
