@@ -1,5 +1,9 @@
 # SVoast changelog
 
+## 2.1.3
+
+- Fixed global components.
+
 ## 2.1.2
 
 - Better handling of default options and animations.
