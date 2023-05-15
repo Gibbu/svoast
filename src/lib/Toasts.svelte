@@ -35,9 +35,11 @@
 			out:scale={{ duration: ANIMATION.duration }}
 			animate:flip={{ duration: ANIMATION.duration }}
 		>
-			{#if toast?.component || component}
+			{#if toast?.component?.[0]}
 				{@const { component, ...props } = toast}
-				<svelte:component this={toast?.component[0] || component} {...props} />
+				<svelte:component this={toast?.component?.[0]} {...props} />
+			{:else if component}
+				<svelte:component this={component} {...props} />
 			{:else}
 				<Toast {toast} />
 			{/if}
