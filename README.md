@@ -38,6 +38,10 @@ View more information at: https://svoast.vercel.app
 
 <br>
 
+## Changelog
+
+You can view all the changes at https://svoast.vercel.app/changelog
+
 ## Licence
 
 See the [LICENSE](https://github.com/Gibbu/svoast/blob/main/LICENSE) file for license rights and limitations (MIT).

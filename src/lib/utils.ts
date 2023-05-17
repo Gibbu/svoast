@@ -1,4 +1,4 @@
-import type { ToastComponentOptions, ToastAnimation } from './types';
+import type { ToastComponentOptions, ToastAnimation, ToastFunctionOptions } from './types';
 
 let id: number = 1;
 
@@ -48,10 +48,7 @@ export const parseDuration = (value: number | string): number => {
  * @param original The original object to be overwritten.
  * @param newObject The object to be added to the original object, replacing existing keys.
  */
-export const objectMerge = <
-	TOriginal extends Record<string, any>,
-	TNew extends Record<string, any> | undefined
->(
+export const objectMerge = <TOriginal extends Record<string, any>, TNew extends Record<string, any> | undefined>(
 	original: TOriginal,
 	newObject: TNew
 ): TOriginal & TNew => {

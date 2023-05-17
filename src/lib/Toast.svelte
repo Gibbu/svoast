@@ -14,7 +14,7 @@
 	role="status"
 >
 	<div class="svoast-bar" />
-	<div class="svoast-icon">
+	<div class="svoast-icon {toast.type}">
 		<Icon type={toast.type} />
 	</div>
 	<div class="svoast-message">
@@ -24,7 +24,7 @@
 			{toast.message}
 		{/if}
 	</div>
-	{#if toast.closable}
+	{#if toast.closable && toast.type !== 'promise'}
 		<button type="button" class="svoast-dismiss" on:click={() => _toast.removeById(toast.id)}>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
@@ -68,6 +68,9 @@
 			max-width: var(--svoast-icon-size, 21px);
 			max-height: var(--svoast-icon-size, 21px);
 			color: var(--svoast-colour);
+			&.promise {
+				animation: promiseSpin 1s linear infinite;
+			}
 		}
 		&-dismiss {
 			min-width: var(--svoast-icon-size, 21px);
@@ -91,6 +94,15 @@
 		}
 		&.error {
 			--svoast-colour: var(--svoast-error-colour, #ef4444);
+		}
+	}
+
+	@keyframes promiseSpin {
+		from {
+			rotate: 0deg;
+		}
+		to {
+			rotate: 360deg;
 		}
 	}
 </style>

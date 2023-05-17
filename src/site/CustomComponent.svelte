@@ -15,7 +15,8 @@
 		attention: 'bg-blue-400',
 		success: 'bg-green-500',
 		warning: 'bg-orange-500',
-		error: 'bg-red-500'
+		error: 'bg-red-500',
+		promise: 'bg-slate-600'
 	};
 </script>
 
@@ -28,19 +29,23 @@
 >
 	<div class="flex gap-4 items-center">
 		<p>{message}</p>
-		<a
-			class="bg-white text-black px-3 py-1.5 rounded"
-			href={link}
-			target={newTab ? '_blank' : undefined}
-			rel={newTab ? 'noreferrer noopener' : undefined}
-		>
-			Open
-		</a>
+		{#if type !== 'promise'}
+			<a
+				class="bg-white text-black px-3 py-1.5 rounded"
+				href={link}
+				target={newTab ? '_blank' : undefined}
+				rel={newTab ? 'noreferrer noopener' : undefined}
+			>
+				Open
+			</a>
+		{/if}
 	</div>
-	<div
-		class="customAnimation absolute w-full bottom-0 left-0 h-1 bg-black/30"
-		style="--duration: {duration}ms"
-	/>
+	{#if type !== 'promise'}
+		<div
+			class="customAnimation absolute w-full bottom-0 left-0 h-1 bg-black/30"
+			style="--duration: {duration}ms"
+		/>
+	{/if}
 </div>
 
 <style>

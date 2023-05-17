@@ -1,4 +1,10 @@
+[Back to docs](/)
+
 # SVoast changelog
+
+## 2.2.0
+
+- New `promise` method.
 
 ## 2.1.3
 

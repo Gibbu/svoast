@@ -4,6 +4,7 @@
 	import Options from './examples/_options.svelte';
 	import Position from './examples/_position.svelte';
 	import Custom from './examples/_custom.svelte';
+	import Promises from './examples/_promises.svelte';
 </script>
 
 # Features
@@ -49,22 +50,16 @@ Import the `<Toasts />` component to your main layout file.
 
 And then call the `toast` function anywhere! (on the client, of course)
 
-```svelte filename="routes/settings/+page.svelte"
+```svelte filename="routes/+page.svelte"
 <script>
 	import { toast } from 'svoast';
 
-	async function save() {
-		const { success } = await api.user.save();
-
-		if (success) {
-			toast.success('Settings successfully updated.');
-		} else {
-			toast.error('There was a problem trying to save your settings.', { duration: 12000 });
-		}
+	async function launchToast() {
+		toast.success('Super good looking toast ;)');
 	}
 </script>
 
-<button on:click={save}>Save changes</button>
+<button on:click={launchToast}>Launch Toast</button>
 ```
 
 <Usage />
@@ -142,6 +137,38 @@ SVoast uses CSS variables.
 	--svoast-icon-padding: 2px;
 }
 ```
+
+---
+
+# Promises
+
+If you're doing any api calls and want to alert to the user something is happening in the background, you can provide the `promise` type.
+
+There are 3 required additional options:
+
+- `loading` is the text while the promise is pending.
+- `success` will be the text if the promise is resolved.
+- `error` is the text if the promise is rejected.
+
+```svelte filename="routes/settings/+page.svelte"
+<script>
+	import { toast } from 'svoast';
+
+	const apiCall = fetch('https://api.mylegitandtotallynotascamwebsite.com/user/save');
+
+	async function save() {
+		toast.promise(apiCall, {
+			loading: 'Saving your profile...',
+			success: 'Profile updated!',
+			error: 'Something went wrong.'
+		});
+	}
+</script>
+
+<button on:click={save}>Save Profile</button>
+```
+
+<Promises />
 
 ---
 
@@ -241,16 +268,17 @@ And then you can use the `removeById` method on the `toast` function.
 
 ### Methods
 
-| Name          | Description                                                     |
-| ------------- | --------------------------------------------------------------- |
-| info          | Usually indicates information to the user, but isn't important. |
-| attention     | Indicate to the user with important information.                |
-| succcess      | Indicates to the user something good has happened.              |
-| warning       | Tell the user something may be wrong but isn't critical.        |
-| error         | Alert the user something critical has happened.                 |
-| removeById    | Remove the toast by the unique ID.                              |
-| removeByIndex | Remove the toast by index position.                             |
-| removeAll     | Remove all toasts.                                              |
+| Name          | Description                                                          |
+| ------------- | -------------------------------------------------------------------- |
+| info          | Usually indicates information to the user, but isn't important.      |
+| attention     | Indicate to the user with important information.                     |
+| succcess      | Indicates to the user something good has happened.                   |
+| warning       | Tell the user something may be wrong but isn't critical.             |
+| error         | Alert the user something critical has happened.                      |
+| promise       | Indicates to the user that something is happening in the background. |
+| removeById    | Remove the toast by the unique ID.                                   |
+| removeByIndex | Remove the toast by index position.                                  |
+| removeAll     | Remove all toasts.                                                   |
 
 ### Options
 
@@ -276,3 +304,9 @@ These are the props that are available to use if you wish to use a custom compon
 | closable | `boolean`              |
 | duration | `number &#124; string` |
 | infinite | `boolean`              |
+
+---
+
+# Changelog
+
+You can view all the changes [HERE](/changelog)

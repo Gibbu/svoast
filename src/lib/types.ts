@@ -5,19 +5,15 @@ import type { ComponentType } from 'svelte';
  *
  * The will also effect how the toasts stack on each other.
  */
-export type ToastPosition =
-	| 'top-left'
-	| 'top-center'
-	| 'top-right'
-	| 'bottom-left'
-	| 'bottom-center'
-	| 'bottom-right';
+export type ToastPosition = 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
 
 /** The type of toast. */
-export type ToastType = 'info' | 'attention' | 'success' | 'warning' | 'error';
+export type ToastType = 'info' | 'attention' | 'success' | 'warning' | 'error' | 'promise';
 
 /** Simple helper to define the internal functions. */
 export type ToastFunction = (message: string, opts?: ToastFunctionOptions) => void;
+
+export type ToastPromiseFunction = (promise: Promise<any>, opts: ToastPromiseOptions) => void;
 
 /**
  * The custom component to rendered.
@@ -28,9 +24,21 @@ export type ToastFunction = (message: string, opts?: ToastFunctionOptions) => vo
 export type ToastCustomComponent = [ComponentType, Record<string, unknown>];
 
 /** Toast component props. */
-export type ToastComponentOptions = Required<
-	Omit<ToastFunctionOptions, 'component' | 'onMount' | 'onRemove'>
->;
+export type ToastComponentOptions = Required<Omit<ToastFunctionOptions, 'component' | 'onMount' | 'onRemove'>>;
+
+export interface ToastAddOptions {
+	id?: number;
+	opts?: ToastFunctionOptions;
+}
+
+export interface ToastPromiseOptions extends Partial<ToastFunctionOptions> {
+	/** The loading message of the promise. */
+	loading: string;
+	/** The text to be displayed if the promise is resolved. */
+	success: string;
+	/** The text to be displayed if the promise is rejected. */
+	error: string;
+}
 
 /** The toast animation properties. */
 export interface ToastAnimation {
@@ -55,7 +63,9 @@ export interface ToastFunctionOptions extends ToastLifeCycles {
 	/**
 	 * The duration of the toast in milliseconds.
 	 *
-	 * Can also accept string values such as: `1s`, `1.75s`, `1500ms`
+	 * Can also accept string values such as: `1s`, `1.75s`, `1500ms`.
+	 *
+	 * The duration used for a promise type will be the duration of the success or error toast.
 	 */
 	duration?: number | string;
 	/**

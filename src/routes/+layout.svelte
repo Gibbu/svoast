@@ -2,6 +2,8 @@
 	import '../app.css';
 	import clsx from 'clsx';
 	import { version } from '../../package.json';
+	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
 
 	import { Toasts, toast } from '$lib';
 
@@ -10,9 +12,11 @@
 
 	let content: HTMLElement;
 
-	toast.attention("You're looking beautiful today!", {
-		duration: 10000,
-		closable: true
+	onMount(() => {
+		toast.attention("You're looking beautiful today!", {
+			duration: 10000,
+			closable: true
+		});
 	});
 </script>
 
@@ -64,5 +68,7 @@
 	>
 		<slot />
 	</article>
-	<Toc {content} />
+	{#key $page}
+		<Toc {content} />
+	{/key}
 </main>

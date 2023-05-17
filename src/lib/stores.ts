@@ -6,13 +6,15 @@ import type {
 	ToastType,
 	ToastPosition,
 	ToastFunctionOptions,
-	ToastComponentWithCustom
+	ToastComponentWithCustom,
+	ToastPromiseFunction,
+	ToastAddOptions
 } from './types';
 
 const TOASTS = writable<ToastComponentWithCustom[]>([]);
 
-const insert = (type: ToastType, message: string, opts: ToastFunctionOptions = DEFAULT_OPTIONS) => {
-	const id = ID();
+const addToast = (type: ToastType, message: string, { opts, id }: ToastAddOptions) => {
+	const UUID = id || ID();
 
 	const customProps: Record<string, unknown> = opts?.component?.[1] || {};
 	const { closable, component, infinite, rich, onMount, onRemove, duration } = objectMerge(
@@ -22,7 +24,7 @@ const insert = (type: ToastType, message: string, opts: ToastFunctionOptions = D
 	const DURATION = parseDuration(duration);
 
 	const props: ToastComponentWithCustom = {
-		id,
+		id: UUID,
 		type,
 		message,
 		duration: DURATION,
@@ -35,21 +37,32 @@ const insert = (type: ToastType, message: string, opts: ToastFunctionOptions = D
 
 	if (typeof window !== 'undefined') onMount?.();
 
-	TOASTS.update(
-		(toasts) => (toasts = get(position).includes('bottom') ? [...toasts, props] : [props, ...toasts])
-	);
+	upsert(props, UUID);
 
-	if (!infinite) {
+	if (!infinite && type !== 'promise') {
 		setTimeout(() => {
-			removeById(id);
+			removeById(UUID);
 			onRemove?.();
 		}, DURATION);
 	}
+
+	return UUID;
 };
 
+const upsert = (props: ToastComponentWithCustom, id: number) => {
+	if (get(TOASTS).find((toast) => toast.id === id)) {
+		TOASTS.update((toasts) => {
+			return toasts.map((toast) => {
+				if (toast.id === id) return { ...toast, ...props };
+				return toast;
+			});
+		});
+	} else {
+		TOASTS.update((toasts) => (toasts = get(position).includes('bottom') ? [...toasts, props] : [props, ...toasts]));
+	}
+};
 const removeById = (id: number) => {
-	if (get(TOASTS).find((el) => el.id === id))
-		TOASTS.update((toasts) => toasts.filter((toast) => toast.id !== id));
+	if (get(TOASTS).find((el) => el.id === id)) TOASTS.update((toasts) => toasts.filter((toast) => toast.id !== id));
 };
 const removeByIndex = (index: number) => {
 	if (get(TOASTS)[index]) TOASTS.update((toasts) => toasts.filter((_, i) => index !== i));
@@ -58,14 +71,34 @@ const removeAll = () => {
 	TOASTS.set([]);
 };
 
+const info: ToastFunction = (message, opts = DEFAULT_OPTIONS) => addToast('info', message, { opts });
+const attention: ToastFunction = (message, opts = DEFAULT_OPTIONS) => addToast('attention', message, { opts });
+const success: ToastFunction = (message, opts = DEFAULT_OPTIONS) => addToast('success', message, { opts });
+const warning: ToastFunction = (message, opts = DEFAULT_OPTIONS) => addToast('warning', message, { opts });
+const error: ToastFunction = (message, opts = DEFAULT_OPTIONS) => addToast('error', message, { opts });
+const promise: ToastPromiseFunction = (promise, opts) => {
+	if (promise instanceof Promise === false) throw Error('`promise` is not a valid Promise.');
+
+	const id = addToast('promise', opts.loading, { opts });
+
+	promise
+		.then(() => {
+			addToast('success', opts.success, { opts, id });
+		})
+		.catch(() => {
+			addToast('error', opts.error, { opts, id });
+		})
+		.finally(() => {
+			if (!opts?.infinite) {
+				setTimeout(() => {
+					removeById(id);
+				}, parseDuration(opts.duration || DEFAULT_OPTIONS.duration));
+			}
+		});
+};
+
 const createStore = () => {
 	const { subscribe } = TOASTS;
-
-	const info: ToastFunction = (message, opts = DEFAULT_OPTIONS) => insert('info', message, opts);
-	const attention: ToastFunction = (message, opts = DEFAULT_OPTIONS) => insert('attention', message, opts);
-	const success: ToastFunction = (message, opts = DEFAULT_OPTIONS) => insert('success', message, opts);
-	const warning: ToastFunction = (message, opts = DEFAULT_OPTIONS) => insert('warning', message, opts);
-	const error: ToastFunction = (message, opts = DEFAULT_OPTIONS) => insert('error', message, opts);
 
 	return {
 		/**
@@ -103,6 +136,13 @@ const createStore = () => {
 		 * @param opts Options for the toast.
 		 */
 		error,
+		/**
+		 * Add a promise toast chain.\
+		 * Indicates to the user that something is happening in the background.
+		 * @param promise The promise to be used.
+		 * @param opts Options for the promise chain.
+		 */
+		promise,
 		/**
 		 * Remove a toast based on the unique ID.
 		 * @param id The unique ID of the toast.
