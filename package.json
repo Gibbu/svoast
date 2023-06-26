@@ -1,6 +1,6 @@
 {
 	"name": "svoast",
-	"version": "2.2.0",
+	"version": "2.2.1",
 	"scripts": {
 		"dev": "vite dev --port=3000",
 		"build:site": "vite build",
@@ -24,31 +24,31 @@
 		"url": "https://github.com/Gibbu/svoast/issues"
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-auto": "^2.0.0",
-		"@sveltejs/kit": "^1.15.7",
+		"@sveltejs/adapter-auto": "^2.1.0",
+		"@sveltejs/kit": "^1.20.5",
 		"@sveltejs/package": "^1.0.2",
 		"@tailwindcss/typography": "^0.5.9",
 		"autoprefixer": "^10.4.14",
 		"clsx": "^1.2.1",
 		"fenceparser": "^2.2.0",
 		"mdsvex": "^0.10.6",
-		"postcss": "^8.4.23",
-		"prettier": "^2.8.7",
-		"prettier-plugin-svelte": "^2.10.0",
+		"postcss": "^8.4.24",
+		"prettier": "^2.8.8",
+		"prettier-plugin-svelte": "^2.10.1",
 		"rehype-slug": "^5.1.0",
 		"remark-code-extra": "^1.0.1",
-		"sass": "^1.62.0",
-		"shiki": "^0.14.1",
-		"shiki-twoslash": "^3.1.1",
-		"svelte": "^3.58.0",
-		"svelte-check": "^3.2.0",
-		"tailwindcss": "^3.3.1",
-		"tslib": "^2.5.0",
+		"sass": "^1.63.6",
+		"shiki": "^0.14.3",
+		"shiki-twoslash": "^3.1.2",
+		"svelte": "^4.0.0",
+		"svelte-check": "^3.4.4",
+		"tailwindcss": "^3.3.2",
+		"tslib": "^2.5.3",
 		"typescript": "^4.9.5",
-		"vite": "^4.3.1"
+		"vite": "^4.3.9"
 	},
 	"peerDependencies": {
-		"svelte": "^3.54.0"
+		"svelte": "^4.0.0"
 	},
 	"type": "module"
 }
