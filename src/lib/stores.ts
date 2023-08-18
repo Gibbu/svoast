@@ -81,12 +81,16 @@ const promise: ToastPromiseFunction = (promise, opts) => {
 
 	const id = addToast('promise', opts.loading, { opts });
 
+	opts?.onStart?.();
+
 	promise
-		.then(() => {
+		.then((data) => {
 			addToast('success', opts.success, { opts, id });
+			opts?.onSuccess?.(data);
 		})
-		.catch(() => {
+		.catch((err) => {
 			addToast('error', opts.error, { opts, id });
+			opts?.onError?.(err);
 		})
 		.finally(() => {
 			if (!opts?.infinite) {
@@ -94,6 +98,7 @@ const promise: ToastPromiseFunction = (promise, opts) => {
 					removeById(id);
 				}, parseDuration(opts.duration || DEFAULT_OPTIONS.duration));
 			}
+			opts?.onFinish?.();
 		});
 };
 

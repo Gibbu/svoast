@@ -38,6 +38,20 @@ export interface ToastPromiseOptions extends Partial<ToastFunctionOptions> {
 	success: string;
 	/** The text to be displayed if the promise is rejected. */
 	error: string;
+	/** Function the run when the promise has started. */
+	onStart?: () => void;
+	/**
+	 * Function to run when the promise has been resolved.
+	 * @param data Any data returned back from the request.
+	 */
+	onSuccess?: <T = any>(data: T) => void;
+	/**
+	 * Function to run when the promise has been rejected.
+	 * @param data Any data returned back from the request.
+	 */
+	onError?: <T = any>(data: T) => void;
+	/** Function to run when the promise has ended, no matter the result. */
+	onFinish?: () => void;
 }
 
 /** The toast animation properties. */

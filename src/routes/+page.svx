@@ -153,11 +153,10 @@ There are 3 required additional options:
 ```svelte filename="routes/settings/+page.svelte"
 <script>
 	import { toast } from 'svoast';
-
-	const apiCall = fetch('https://api.mylegitandtotallynotascamwebsite.com/user/save');
+	import { db } from '$lib';
 
 	async function save() {
-		toast.promise(apiCall, {
+		toast.promise(db.profile.save(), {
 			loading: 'Saving your profile...',
 			success: 'Profile updated!',
 			error: 'Something went wrong.'
@@ -218,9 +217,7 @@ The second index of the array will be an object of any props you want to be pass
 
 <div class="toast {type}" style="--duration: {duration}">
 	<p>{message}</p>
-	<a href={link} target={newTab ? '_blank' : undefined} rel={newTab ? 'noreferrer noopener' : undefined}>
-		View Page
-	</a>
+	<a href={link} target={newTab ? '_blank' : undefined} rel={newTab ? 'noreferrer noopener' : undefined}> View Page </a>
 </div>
 ```
 
@@ -264,6 +261,18 @@ And then you can use the `removeById` method on the `toast` function.
 
 ---
 
+# Life cycle hooks
+
+There are a number of hooks that you can use to run code when a certain action has happened.  
+For normal toasts, you have the `onMount` and `onRemove` methods.
+
+For the promise toasts, you have the two mentioned before and `onStart`, `onSuccess`, `onError`, `onFinish`.  
+These should be pretty self-explanatory on when they run.
+
+Simply pass these into the options object of your toast call.
+
+---
+
 # API
 
 ### Methods
@@ -304,6 +313,17 @@ These are the props that are available to use if you wish to use a custom compon
 | closable | `boolean`              |
 | duration | `number &#124; string` |
 | infinite | `boolean`              |
+
+### Life Cycle Hooks
+
+| Name        | Parameters | Type                         | Description                                       |
+| ----------- | ---------- | ---------------------------- | ------------------------------------------------- |
+| `onMount`   |            | `() => void`                 | When a toast has been added to the store.         |
+| `onRemove`  |            | `() => void`                 | When a toast has been removed from the store.     |
+| `onStart`   |            | `() => void`                 | When the promise has been started.                |
+| `onSuccess` | `data`     | `<T = any>(data: T) => void` | When the promise has been resolved.               |
+| `onError`   | `data`     | `<T = any>(data: T) => void` | When the promise has been rejected.               |
+| `onFinish`  |            | `() => void`                 | When the promise has ended, no matter the result. |
 
 ---
 
