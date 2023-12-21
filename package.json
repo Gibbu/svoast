@@ -1,10 +1,10 @@
 {
 	"name": "svoast",
-	"version": "2.3.0",
+	"version": "2.4.0",
 	"scripts": {
 		"dev": "vite dev --port=3000",
 		"build:site": "vite build",
-		"build": "svelte-kit sync && svelte-package",
+		"build": "svelte-kit sync && svelte-package -o package",
 		"prepublishOnly": "echo 'Did you mean to publish `./package/`, instead of `./`?' && exit 1",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
@@ -24,31 +24,96 @@
 		"url": "https://github.com/Gibbu/svoast/issues"
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-auto": "^2.1.0",
-		"@sveltejs/kit": "^1.22.6",
-		"@sveltejs/package": "^1.0.2",
-		"@tailwindcss/typography": "^0.5.9",
-		"autoprefixer": "^10.4.15",
-		"clsx": "^1.2.1",
+		"@sveltejs/adapter-auto": "^3.0.1",
+		"@sveltejs/kit": "^2.0.5",
+		"@sveltejs/package": "^2.0.0",
+		"@sveltejs/vite-plugin-svelte": "^3.0.0",
+		"@tailwindcss/typography": "^0.5.10",
+		"autoprefixer": "^10.4.16",
+		"clsx": "^2.0.0",
 		"fenceparser": "^2.2.0",
-		"mdsvex": "^0.10.6",
-		"postcss": "^8.4.28",
-		"prettier": "^2.8.8",
-		"prettier-plugin-svelte": "^2.10.1",
-		"rehype-slug": "^5.1.0",
+		"mdsvex": "^0.11.0",
+		"postcss": "^8.4.32",
+		"prettier": "^3.1.1",
+		"prettier-plugin-svelte": "^3.1.2",
+		"rehype-slug": "^6.0.0",
 		"remark-code-extra": "^1.0.1",
-		"sass": "^1.66.0",
-		"shiki": "^0.14.3",
+		"sass": "^1.69.5",
+		"shiki": "^0.14.7",
 		"shiki-twoslash": "^3.1.2",
-		"svelte": "^4.2.0",
-		"svelte-check": "^3.5.0",
-		"tailwindcss": "^3.3.3",
-		"tslib": "^2.6.1",
-		"typescript": "^4.9.5",
-		"vite": "^4.4.9"
+		"svelte": "^4.2.8",
+		"svelte-check": "^3.6.2",
+		"tailwindcss": "^3.4.0",
+		"tslib": "^2.6.2",
+		"typescript": "^5.3.3",
+		"vite": "^5.0.10"
 	},
 	"peerDependencies": {
 		"svelte": "^4.0.0"
 	},
-	"type": "module"
+	"type": "module",
+	"exports": {
+		"./package.json": "./package.json",
+		"./Icon.svelte": {
+			"types": "./package/Icon.svelte.d.ts",
+			"svelte": "./package/Icon.svelte",
+			"default": "./package/Icon.svelte"
+		},
+		"./Toast.svelte": {
+			"types": "./package/Toast.svelte.d.ts",
+			"svelte": "./package/Toast.svelte",
+			"default": "./package/Toast.svelte"
+		},
+		"./Toasts.svelte": {
+			"types": "./package/Toasts.svelte.d.ts",
+			"svelte": "./package/Toasts.svelte",
+			"default": "./package/Toasts.svelte"
+		},
+		".": {
+			"types": "./package/index.d.ts",
+			"svelte": "./package/index.js",
+			"default": "./package/index.js"
+		},
+		"./stores": {
+			"types": "./package/stores.d.ts",
+			"default": "./package/stores.js"
+		},
+		"./types": {
+			"types": "./package/types.d.ts",
+			"default": "./package/types.js"
+		},
+		"./utils": {
+			"types": "./package/utils.d.ts",
+			"default": "./package/utils.js"
+		}
+	},
+	"files": [
+		"package"
+	],
+	"svelte": "./package/index.js",
+	"typesVersions": {
+		">4.0": {
+			"Icon.svelte": [
+				"./package/Icon.svelte.d.ts"
+			],
+			"Toast.svelte": [
+				"./package/Toast.svelte.d.ts"
+			],
+			"Toasts.svelte": [
+				"./package/Toasts.svelte.d.ts"
+			],
+			"index.d.ts": [
+				"./package/index.d.ts"
+			],
+			"stores": [
+				"./package/stores.d.ts"
+			],
+			"types": [
+				"./package/types.d.ts"
+			],
+			"utils": [
+				"./package/utils.d.ts"
+			]
+		}
+	}
 }
