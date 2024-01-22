@@ -1,11 +1,11 @@
 {
 	"name": "svoast",
-	"version": "2.4.0",
+	"version": "2.4.1",
 	"scripts": {
 		"dev": "vite dev --port=3000",
 		"build:site": "vite build",
 		"build": "svelte-kit sync && svelte-package -o package",
-		"prepublishOnly": "echo 'Did you mean to publish `./package/`, instead of `./`?' && exit 1",
+		"package": "npm run build && node build.js && npm publish ./package",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --plugin-search-dir . --check .",
@@ -51,69 +51,5 @@
 	"peerDependencies": {
 		"svelte": "^4.0.0"
 	},
-	"type": "module",
-	"exports": {
-		"./package.json": "./package.json",
-		"./Icon.svelte": {
-			"types": "./package/Icon.svelte.d.ts",
-			"svelte": "./package/Icon.svelte",
-			"default": "./package/Icon.svelte"
-		},
-		"./Toast.svelte": {
-			"types": "./package/Toast.svelte.d.ts",
-			"svelte": "./package/Toast.svelte",
-			"default": "./package/Toast.svelte"
-		},
-		"./Toasts.svelte": {
-			"types": "./package/Toasts.svelte.d.ts",
-			"svelte": "./package/Toasts.svelte",
-			"default": "./package/Toasts.svelte"
-		},
-		".": {
-			"types": "./package/index.d.ts",
-			"svelte": "./package/index.js",
-			"default": "./package/index.js"
-		},
-		"./stores": {
-			"types": "./package/stores.d.ts",
-			"default": "./package/stores.js"
-		},
-		"./types": {
-			"types": "./package/types.d.ts",
-			"default": "./package/types.js"
-		},
-		"./utils": {
-			"types": "./package/utils.d.ts",
-			"default": "./package/utils.js"
-		}
-	},
-	"files": [
-		"package"
-	],
-	"svelte": "./package/index.js",
-	"typesVersions": {
-		">4.0": {
-			"Icon.svelte": [
-				"./package/Icon.svelte.d.ts"
-			],
-			"Toast.svelte": [
-				"./package/Toast.svelte.d.ts"
-			],
-			"Toasts.svelte": [
-				"./package/Toasts.svelte.d.ts"
-			],
-			"index.d.ts": [
-				"./package/index.d.ts"
-			],
-			"stores": [
-				"./package/stores.d.ts"
-			],
-			"types": [
-				"./package/types.d.ts"
-			],
-			"utils": [
-				"./package/utils.d.ts"
-			]
-		}
-	}
+	"type": "module"
 }
