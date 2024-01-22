@@ -10,7 +10,6 @@ const editedPkg = {
 		},
 		'./package.json': './package.json',
 		'./Icon.svelte': './Icon.svelte',
-		'.': './index.js',
 		'./stores': './stores.js',
 		'./Toast.svelte': './Toast.svelte',
 		'./Toasts.svelte': './Toasts.svelte',
