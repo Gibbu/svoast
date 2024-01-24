@@ -1,6 +1,8 @@
 import fs from 'fs';
 
 const pkg = JSON.parse(fs.readFileSync('package.json', 'utf-8'));
+fs.copyFileSync('./README.md', './package/README.md');
+fs.copyFileSync('./LICENSE.md', './package/LICENSE.md');
 
 const editedPkg = {
 	...pkg,
