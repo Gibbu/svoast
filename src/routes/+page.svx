@@ -298,8 +298,6 @@ Simply pass these into the options object of your toast call.
 | component | `ToastCustomComponent`                | Allow a custom component to be rendered.                                                                   |
 | infinite  | `boolean`                             | Ignores `duration` and will never expire unless dismissed or removed by any of the `remove` methods.       |
 | rich      | `boolean`                             | Allow the use of HTML in the message.<br>**CAUTION**: Make sure to sanitize ALL content provided by users. |
-| onMount   | `Function`                            | Life cycle hook that runs when the toast is added to the store.                                            |
-| onRemove  | `Function`                            | Life cycle hook that runs when the toast is removed from the store, by any means.                          |
 
 ### Exported props
 
