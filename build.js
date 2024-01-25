@@ -8,7 +8,8 @@ const editedPkg = {
 	...pkg,
 	exports: {
 		'.': {
-			svelte: './index.js'
+			svelte: './index.js',
+			types: './index.d.ts'
 		},
 		'./package.json': './package.json',
 		'./Icon.svelte': './Icon.svelte',
@@ -17,17 +18,6 @@ const editedPkg = {
 		'./Toasts.svelte': './Toasts.svelte',
 		'./types': './types.js',
 		'./utils': './utils.js'
-	},
-	typesVersions: {
-		'>4.0': {
-			'Icon.svelte': ['./Icon.svelte.d.ts'],
-			'index.d.ts': ['./index.d.ts'],
-			stores: ['./stores.d.ts'],
-			'Toast.svelte': ['./Toast.svelte.d.ts'],
-			'Toasts.svelte': ['./Toasts.svelte.d.ts'],
-			types: ['./types.d.ts'],
-			utils: ['./utils.d.ts']
-		}
 	}
 };
 
