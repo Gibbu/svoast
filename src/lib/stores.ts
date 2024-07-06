@@ -12,6 +12,7 @@ import type {
 } from './types';
 
 const TOASTS = writable<ToastComponentWithCustom[]>([]);
+const TIMEOUT = new Map();
 
 const addToast = (type: ToastType, message: string, { opts, id }: ToastAddOptions) => {
 	const UUID = id || ID();
@@ -40,15 +41,25 @@ const addToast = (type: ToastType, message: string, { opts, id }: ToastAddOption
 	upsert(props, UUID);
 
 	if (!infinite && type !== 'promise') {
-		setTimeout(() => {
-			removeById(UUID);
-			onRemove?.();
-		}, DURATION);
+		TIMEOUT.set(
+			UUID,
+			setTimeout(() => {
+				removeById(UUID);
+				onRemove?.();
+			}, DURATION)
+		);
 	}
 
 	return UUID;
 };
 
+const removeTimeout = (timeoutId: number) => {
+	const timeout = TIMEOUT.get(timeoutId);
+	if (timeout) {
+		clearTimeout(timeout);
+		TIMEOUT.delete(timeoutId);
+	}
+};
 const upsert = (props: ToastComponentWithCustom, id: number) => {
 	if (get(TOASTS).find((toast) => toast.id === id)) {
 		TOASTS.update((toasts) => {
@@ -62,13 +73,25 @@ const upsert = (props: ToastComponentWithCustom, id: number) => {
 	}
 };
 const removeById = (id: number) => {
-	if (get(TOASTS).find((el) => el.id === id)) TOASTS.update((toasts) => toasts.filter((toast) => toast.id !== id));
+	const toast = get(TOASTS).find((el) => el.id === id);
+
+	if (!toast) return;
+
+	TOASTS.update((toasts) => toasts.filter((toast) => toast.id !== id));
+
+	removeTimeout(toast.id);
 };
 const removeByIndex = (index: number) => {
-	if (get(TOASTS)[index]) TOASTS.update((toasts) => toasts.filter((_, i) => index !== i));
+	const toast = get(TOASTS)[index];
+	if (!toast) return;
+
+	TOASTS.update((toasts) => toasts.filter((_, i) => index !== i));
+
+	removeTimeout(toast.id);
 };
 const removeAll = () => {
 	TOASTS.set([]);
+	TIMEOUT.clear();
 };
 
 const info: ToastFunction = (message, opts = DEFAULT_OPTIONS) => addToast('info', message, { opts });
@@ -94,9 +117,12 @@ const promise: ToastPromiseFunction = (promise, opts) => {
 		})
 		.finally(() => {
 			if (!opts?.infinite) {
-				setTimeout(() => {
-					removeById(id);
-				}, parseDuration(opts.duration || DEFAULT_OPTIONS.duration));
+				setTimeout(
+					() => {
+						removeById(id);
+					},
+					parseDuration(opts.duration || DEFAULT_OPTIONS.duration)
+				);
 			}
 			opts?.onFinish?.();
 		});

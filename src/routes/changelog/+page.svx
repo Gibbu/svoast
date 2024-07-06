@@ -2,6 +2,10 @@
 
 # SVoast changelog
 
+## 2.4.5
+
+- Added timeout tracking to reduce any unnecessary timeout calls.
+
 ## 2.3.0
 
 - Added `onStart`, `onSuccess`, `onError`, and `onFinish` life cycle hooks to the promise toast.
