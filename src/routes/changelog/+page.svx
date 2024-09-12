@@ -2,6 +2,11 @@
 
 # SVoast changelog
 
+## 2.5.0
+
+- Returned original promise with `toast.promise` (thanks [andogq](https://github.com/andogq)!)
+- Allowed `toast.promise` `success` and `error` config options to be a callback with the resulting data passed though. (thanks [andogq](https://github.com/andogq)!)
+
 ## 2.4.5
 
 - Added timeout tracking to reduce any unnecessary timeout calls.
