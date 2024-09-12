@@ -126,6 +126,8 @@ const promise: ToastPromiseFunction = (promise, opts) => {
 			}
 			opts?.onFinish?.();
 		});
+
+	return promise;
 };
 
 const createStore = () => {

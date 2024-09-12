@@ -13,7 +13,7 @@ export type ToastType = 'info' | 'attention' | 'success' | 'warning' | 'error' |
 /** Simple helper to define the internal functions. */
 export type ToastFunction = (message: string, opts?: ToastFunctionOptions) => void;
 
-export type ToastPromiseFunction = (promise: Promise<any>, opts: ToastPromiseOptions) => void;
+export type ToastPromiseFunction = <T>(promise: Promise<T>, opts: ToastPromiseOptions) => Promise<T>;
 
 /**
  * The custom component to rendered.
