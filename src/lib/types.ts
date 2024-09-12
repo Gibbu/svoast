@@ -13,7 +13,7 @@ export type ToastType = 'info' | 'attention' | 'success' | 'warning' | 'error' |
 /** Simple helper to define the internal functions. */
 export type ToastFunction = (message: string, opts?: ToastFunctionOptions) => void;
 
-export type ToastPromiseFunction = <T>(promise: Promise<T>, opts: ToastPromiseOptions) => Promise<T>;
+export type ToastPromiseFunction = <T>(promise: Promise<T>, opts: ToastPromiseOptions<T>) => Promise<T>;
 
 /**
  * The custom component to rendered.
@@ -31,13 +31,13 @@ export interface ToastAddOptions {
 	opts?: ToastFunctionOptions;
 }
 
-export interface ToastPromiseOptions extends Partial<ToastFunctionOptions> {
+export interface ToastPromiseOptions<T> extends Partial<ToastFunctionOptions> {
 	/** The loading message of the promise. */
 	loading: string;
 	/** The text to be displayed if the promise is resolved. */
-	success: string;
+	success: string | ((data: T) => string);
 	/** The text to be displayed if the promise is rejected. */
-	error: string;
+	error: string | ((error: unknown) => string);
 	/** Function the run when the promise has started. */
 	onStart?: () => void;
 	/**

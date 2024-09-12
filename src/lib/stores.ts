@@ -108,11 +108,13 @@ const promise: ToastPromiseFunction = (promise, opts) => {
 
 	promise
 		.then((data) => {
-			addToast('success', opts.success, { opts, id });
+			const message = typeof opts.success === 'string' ? opts.success : opts.success(data);
+			addToast('success', message, { opts, id });
 			opts?.onSuccess?.(data);
 		})
 		.catch((err) => {
-			addToast('error', opts.error, { opts, id });
+			const message = typeof opts.error === 'string' ? opts.error : opts.error(err);
+			addToast('error', message, { opts, id });
 			opts?.onError?.(err);
 		})
 		.finally(() => {
