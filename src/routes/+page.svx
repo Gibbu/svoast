@@ -59,7 +59,7 @@ And then call the `toast` function anywhere! (on the client, of course)
 	}
 </script>
 
-<button on:click={launchToast}>Launch Toast</button>
+<button onclick={launchToast}>Launch Toast</button>
 ```
 
 <Usage />
@@ -164,7 +164,7 @@ There are 3 required additional options:
 	}
 </script>
 
-<button on:click={save}>Save Profile</button>
+<button onclick={save}>Save Profile</button>
 ```
 
 <Promises />
@@ -215,7 +215,7 @@ The second index of the array will be an object of any props you want to be pass
 	export let newTab = false;
 </script>
 
-<div class="toast {type}" style="--duration: {duration}">
+<div class="toast {type}" style="--duration {duration}">
 	<p>{message}</p>
 	<a href={link} target={newTab ? '_blank' : undefined} rel={newTab ? 'noreferrer noopener' : undefined}> View Page </a>
 </div>
@@ -233,7 +233,7 @@ The second index of the array will be an object of any props you want to be pass
 	}
 </script>
 
-<button on:click={save}>Save Changes</button>
+<button onclick={save}>Save Changes</button>
 ```
 
 <Custom />
@@ -255,7 +255,7 @@ And then you can use the `removeById` method on the `toast` function.
 
 <div>
 	{message}
-	<button on:click={() => toast.removeById(id)}>X</button>
+	<button onclick={() => toast.removeById(id)}>X</button>
 </div>
 ```
 

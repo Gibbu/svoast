@@ -1,11 +1,13 @@
 <script lang="ts">
-	import { toast } from '$lib';
+	import { toaster } from '$lib';
+
 	import type { ToastType } from '$lib';
+	type Types = Exclude<ToastType, 'promise'>;
 
 	let types: ToastType[] = ['info', 'attention', 'success', 'warning', 'error'];
-	let type: ToastType = 'success';
+	let type = $state<Types>('success');
 
-	const messages = {
+	const messages: { [k in Types]: string } = {
 		info: 'You can press CTRL + K to focus the search bar.',
 		attention: 'View our latest announcement post here.',
 		success: 'Profile successfully updated.',
@@ -13,10 +15,10 @@
 		error: 'This content is no longer accessable.'
 	};
 
-	$: message = messages[type];
+	let message = $derived(messages[type as keyof typeof messages]);
 
 	const launchToast = () => {
-		toast[type](message);
+		toaster[type](message);
 	};
 </script>
 
@@ -27,7 +29,5 @@
 		{/each}
 	</select>
 
-	<input class="input flex-1" type="text" bind:value={message} />
-
-	<button type="button" class="btn" on:click={launchToast}>Launch toast</button>
+	<button type="button" class="btn" onclick={launchToast}>Launch toast</button>
 </div>

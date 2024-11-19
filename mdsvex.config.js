@@ -1,28 +1,18 @@
-import { defineMDSveXConfig as defineConfig } from 'mdsvex';
+import { defineMDSveXConfig as defineConfig, escapeSvelte } from 'mdsvex';
 import slug from 'rehype-slug';
-import { lex, parse } from 'fenceparser';
-import { renderCodeToHTML, runTwoSlash, createShikiHighlighter } from 'shiki-twoslash';
+import externalLinks from 'remark-external-links';
+import { codeToHtml } from 'shiki';
 
 const config = defineConfig({
-	extensions: ['.svelte.md', '.md', '.svx'],
+	extensions: ['.svx'],
 
 	highlight: {
-		async highlighter(code, lang, meta) {
-			let fence;
-
-			try {
-				fence = parse(lex([lang, meta].filter(Boolean).join(' ')));
-			} catch (error) {
-				throw new Error(`Could not parse the codefence for this code sample \n${code}`);
-			}
-
-			let twoslash;
-			if (fence.twoslash === true) {
-				twoslash = runTwoSlash(code, lang);
-			}
-
-			const highlighter = await createShikiHighlighter({ theme: 'github-dark' });
-			const html = renderCodeToHTML(code, lang, fence, {}, highlighter, twoslash);
+		highlighter: async (code, lang = 'text') => {
+			const returned = await codeToHtml(code, {
+				theme: 'github-dark',
+				lang
+			});
+			const html = escapeSvelte(returned);
 			return `{@html \`${html}\` }`;
 		}
 	},
@@ -31,7 +21,7 @@ const config = defineConfig({
 		dashes: 'oldschool'
 	},
 
-	remarkPlugins: [],
+	remarkPlugins: [[externalLinks, { target: '_blank', rel: 'noopener noreferrer' }]],
 	rehypePlugins: [slug]
 });
 

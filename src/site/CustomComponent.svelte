@@ -3,12 +3,21 @@
 
 	import type { ToastType } from '$lib';
 
-	export let message: string;
-	export let type: ToastType;
-	export let id: number;
-	export let duration: number | string;
-	export let link: string;
-	export let newTab: boolean;
+	let {
+		message,
+		type,
+		id,
+		duration,
+		link,
+		newTab
+	}: {
+		message: string;
+		type: ToastType;
+		id: number;
+		duration: number | string;
+		link: string;
+		newTab: boolean;
+	} = $props();
 
 	const types = {
 		info: 'bg-gray-600',
@@ -41,10 +50,7 @@
 		{/if}
 	</div>
 	{#if type !== 'promise'}
-		<div
-			class="customAnimation absolute w-full bottom-0 left-0 h-1 bg-black/30"
-			style="--duration: {duration}ms"
-		/>
+		<div class="customAnimation absolute w-full bottom-0 left-0 h-1 bg-black/30" style="--duration: {duration}ms"></div>
 	{/if}
 </div>
 

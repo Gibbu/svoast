@@ -2,6 +2,13 @@
 
 # SVoast changelog
 
+## 3.0.0
+
+- Svelte 5 support.
+
+This is a complete convert over to Svelte 5.  
+Svelte 4 **will not** work with this update.
+
 ## 2.5.0
 
 - Returned original promise with `toast.promise` (thanks [andogq](https://github.com/andogq)!)

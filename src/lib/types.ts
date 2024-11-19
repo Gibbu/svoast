@@ -1,4 +1,4 @@
-import type { ComponentType } from 'svelte';
+import type { Component } from 'svelte';
 
 /**
  * The position of the toasts.
@@ -21,7 +21,7 @@ export type ToastPromiseFunction = <T>(promise: Promise<T>, opts: ToastPromiseOp
  * First index will be the component.\
  * Second index will be any props you wish to pass down to your component.
  */
-export type ToastCustomComponent = [ComponentType, Record<string, unknown>];
+export type ToastCustomComponent<T extends Record<string, any>> = [Component<T>, Record<string, unknown>];
 
 /** Toast component props. */
 export type ToastComponentOptions = Required<Omit<ToastFunctionOptions, 'component' | 'onMount' | 'onRemove'>>;
@@ -71,7 +71,7 @@ export interface ToastLifeCycles {
 	onRemove?: () => void;
 }
 
-export interface ToastFunctionOptions extends ToastLifeCycles {
+export interface ToastFunctionOptions<T extends Record<string, any> = any> extends ToastLifeCycles {
 	/** Allow the toast to be dismissed. */
 	closable?: boolean;
 	/**
@@ -88,7 +88,7 @@ export interface ToastFunctionOptions extends ToastLifeCycles {
 	 * First index will be the component.\
 	 * Second index will be any props you wish to pass down to your component.
 	 */
-	component?: ToastCustomComponent;
+	component?: ToastCustomComponent<T>;
 	/** Never remove the toast. */
 	infinite?: boolean;
 	/**
@@ -108,6 +108,6 @@ export interface ToastComponent extends ToastComponentOptions {
 }
 
 /** Object interface to tell if there's a `component` prop. */
-export interface ToastComponentWithCustom extends ToastComponent {
-	component: ToastCustomComponent;
+export interface ToastComponentWithCustom<T extends Record<string, any> = any> extends ToastComponent {
+	component: ToastCustomComponent<T>;
 }

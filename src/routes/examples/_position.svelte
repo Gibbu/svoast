@@ -1,15 +1,8 @@
 <script lang="ts">
-	import { position } from '$site/stores';
-	import type { ToastPosition } from '$lib';
-
-	let pos: ToastPosition = 'bottom-right';
-
-	const update = () => {
-		$position = pos;
-	};
+	import { settings } from '$site/stores.svelte';
 </script>
 
-<select class="select" bind:value={pos} on:change={update}>
+<select class="select" bind:value={settings.position}>
 	<option value="bottom-left">bottom-left</option>
 	<option value="bottom-center">bottom-center</option>
 	<option value="bottom-right">bottom-right</option>

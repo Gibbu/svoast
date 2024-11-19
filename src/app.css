@@ -11,22 +11,3 @@
 .shiki {
 	@apply !bg-transparent;
 }
-.shiki[filename]::before {
-	content: attr(filename);
-	@apply pt-2 px-4 text-xs block -mb-2;
-}
-.shiki .language-id {
-	@apply text-xs absolute top-2 right-4 opacity-50;
-}
-.shiki .code-container {
-	@apply overflow-x-auto p-4;
-}
-.shiki .line {
-	@apply py-[2px] block;
-}
-.shiki .line:empty {
-	@apply h-4;
-}
-.shiki .highlight {
-	@apply bg-white/10 min-w-min -mx-4 px-4;
-}

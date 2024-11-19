@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Custom from '$site/CustomComponent.svelte';
-	import { toast, type ToastType } from '$lib';
+	import { toaster, type ToastType } from '$lib';
 	import { fakeApi } from '$site/utils';
 
 	let types: ToastType[] = ['info', 'attention', 'success', 'warning', 'error', 'promise'];
@@ -8,12 +8,12 @@
 
 	async function save() {
 		if (type !== 'promise') {
-			toast[type]('Custom component!', {
+			toaster[type]('Custom component!', {
 				duration: '10s',
 				component: [Custom, { link: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', newTab: true }]
 			});
 		} else {
-			toast.promise(fakeApi(3, 6), {
+			toaster.promise(fakeApi(3, 6), {
 				loading: 'Loading...',
 				success: 'Wahoo!',
 				error: 'Bad!',
@@ -29,4 +29,4 @@
 	{/each}
 </select>
 
-<button type="button" class="btn" on:click={save}>Save Changes</button>
+<button type="button" class="btn" onclick={save}>Save Changes</button>

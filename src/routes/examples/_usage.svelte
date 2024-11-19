@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { toast } from '$lib';
+	import { toaster } from '$lib';
 
-	async function launchToast() {
-		toast.success('Super good looking toast ;)');
+	function launchToast() {
+		toaster.success('Super good looking toast ;)');
 	}
 </script>
 
-<button type="button" class="btn" on:click={launchToast}>Launch Toast</button>
+<button type="button" class="btn" onclick={launchToast}>Launch Toast</button>

@@ -1,4 +1,4 @@
-<script lang="ts" context="module">
+<script lang="ts" module>
 	/**
 	 * Map from toast type to SVG icon path data. All icons are provided by HeroIcons.
 	 *
@@ -20,18 +20,16 @@
 <script lang="ts">
 	import type { ToastType } from './types';
 
-	/**
-	 * Which icon to display.
-	 */
-	export let type: ToastType;
+	let {
+		type
+	}: {
+		/**
+		 * Which icon to display.
+		 */
+		type: ToastType;
+	} = $props();
 </script>
 
-<svg
-	xmlns="http://www.w3.org/2000/svg"
-	fill="none"
-	viewBox="0 0 24 24"
-	stroke-width="1.5"
-	stroke="currentColor"
->
-	<path stroke-linecap="round" stroke-linejoin="round" d={ICON_PATHS[type]} />
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+	<path stroke-linecap="round" stroke-linejoin="round" d={ICON_PATHS[type]}></path>
 </svg>
