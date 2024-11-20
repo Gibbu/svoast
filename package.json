@@ -1,6 +1,6 @@
 {
 	"name": "svoast",
-	"version": "3.0.1",
+	"version": "3.0.2",
 	"scripts": {
 		"dev": "vite dev",
 		"build:site": "vite build",
@@ -18,8 +18,8 @@
 	],
 	"exports": {
 		".": {
-			"types": "./dist/index.d.ts",
-			"svelte": "./dist/index.js"
+			"types": "./package/index.d.ts",
+			"svelte": "./package/index.js"
 		}
 	},
 	"files": [
