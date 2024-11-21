@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { toaster } from '$lib';
+	import { toast } from '$lib';
 
 	import type { ToastType } from '$lib';
 	type Types = Exclude<ToastType, 'promise'>;
@@ -18,7 +18,7 @@
 	let message = $derived(messages[type as keyof typeof messages]);
 
 	const launchToast = () => {
-		toaster[type](message);
+		toast[type](message);
 	};
 </script>
 

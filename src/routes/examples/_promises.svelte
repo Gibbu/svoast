@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { toaster } from '$lib';
+	import { toast } from '$lib';
 	import { fakeApi } from '$site/utils';
 
 	const save = () => {
-		toaster.promise(fakeApi(3, 6), {
+		toast.promise(fakeApi(3, 6), {
 			loading: 'Saving your profile...',
 			success: 'Profile updated!',
 			error: 'Something went wrong.',

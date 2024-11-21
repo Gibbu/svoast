@@ -5,7 +5,7 @@
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 
-	import { Toasts, toaster } from '$lib';
+	import { Toasts, toast } from '$lib';
 
 	import { settings } from '$site/stores.svelte';
 	import Toc from '$site/TOC.svelte';
@@ -13,7 +13,7 @@
 	let content: HTMLElement;
 
 	onMount(() => {
-		toaster.attention("You're looking beautiful today!", {
+		toast.attention("You're looking beautiful today!", {
 			duration: 10000,
 			closable: true
 		});

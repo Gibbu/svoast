@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { toaster } from '$lib';
+	import { toast } from '$lib';
 
 	let duration: number = 3000;
 	let closable: boolean = false;
@@ -11,7 +11,7 @@
 			const message = rich
 				? `This toast <u><strong>${closable ? 'can' : 'will never'}</strong></u> disappear.`
 				: `This toast ${closable ? 'can' : 'will never'} disappear.`;
-			toaster.attention(message, {
+			toast.attention(message, {
 				duration,
 				closable,
 				infinite,
@@ -21,7 +21,7 @@
 			const message = rich
 				? `This toast will disappear in <u><strong>${duration / 1000}s</strong></u>.`
 				: `This toast will disappear in ${duration / 1000}s.`;
-			toaster.attention(message, { duration, closable, rich });
+			toast.attention(message, { duration, closable, rich });
 		}
 	};
 </script>
@@ -46,6 +46,6 @@
 </div>
 <div class="flex gap-4">
 	<button class="btn" type="button" on:click={launch}>Add toast</button>
-	<button type="button" class="btn" on:click={() => toaster.removeByIndex(0)}>Remove oldest</button>
-	<button type="button" class="btn" on:click={() => toaster.removeAll()}>Remove all</button>
+	<button type="button" class="btn" on:click={() => toast.removeByIndex(0)}>Remove oldest</button>
+	<button type="button" class="btn" on:click={() => toast.removeAll()}>Remove all</button>
 </div>

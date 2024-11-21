@@ -131,4 +131,4 @@ class ToastState {
 	};
 }
 
-export const toaster = new ToastState();
+export const toast = new ToastState();

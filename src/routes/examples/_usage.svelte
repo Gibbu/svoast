@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { toaster } from '$lib';
+	import { toast } from '$lib';
 
 	function launchToast() {
-		toaster.success('Super good looking toast ;)');
+		toast.success('Super good looking toast ;)');
 	}
 </script>
 
